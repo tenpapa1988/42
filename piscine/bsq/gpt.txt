@@ -1,0 +1,298 @@
+I wrote codes to solve a problem below in #examination sentence. And I put the codes in #codes section. I created the example_file same as examination sentence and executed with "./bsq example_file", but the probram says "Map error". Can you guess what's the problem???
+
+#examination sentence
+
+*Description: Write a program that draws and print the biggest possible square in the given area
+*Program name: bsq
+*Turn in files: Makefile and all the necessary files
+*Arguments File(s) in which to read the square
+*External functs: open, close, read, write, malloc, free, exit
+*Libft authorized: Not applicable
+
+• The biggest square :
+◦ The aim of this project is to find the biggest square on a map, avoiding obstacles.
+◦ A file containing the map will be provided. It’ll have to be passed as an
+argument for your program.
+◦ The first line of the map contains information on how to read the map :
+∗ The number of lines on the map;
+∗ The "empty" character;
+∗ The "obstacle" character;
+∗ The "full" character.
+◦ The map is made up of ’"empty" characters’, lines and ’"obstacle" characters’.
+◦ The aim of the program is to replace ’"empty" characters’ by ’"full"
+characters’ in order to represent the biggest square possible.
+◦ In the case that more than one solution exists, we’ll choose to represent the
+square that’s closest to the top of the map, then the one that’s most to the
+left.
+◦ Your program must handle 1 to n files as parameters.
+◦ When your program receives more than one map in argument, each solution
+or map error must be followed by a line break.
+◦ Should there be no passed arguments, your program must be able to read on
+the standard input.
+◦ You should have a valid Makefile that’ll compile your project. Your Makefile
+mustn’t relink.
+
+• Definition of a valid map :
+◦ All lines must have the same length.
+◦ There’s at least one line of at least one box.
+◦ At each end of line, there’s a line break.
+◦ The characters on the map can only be those introduced in the first line.
+◦ The map is invalid if a character is missing from the first line, or if two characters (of empty, full and obstacle) are identical.
+◦ The characters can be any printable character, even numbers.
+◦ In case of an invalid map, your program should display map error on the error
+output followed by a line break. Your program will then move on to the next
+map.
+
+• Here’s an example of how it should work :
+%>cat example_file
+9.ox
+...........................
+....o......................
+............o..............
+...........................
+....o......................
+...............o...........
+...........................
+......o..............o.....
+..o.......o................
+%>./bsq example_file
+.....xxxxxxx...............
+....oxxxxxxx...............
+.....xxxxxxxo..............
+.....xxxxxxx...............
+....oxxxxxxx...............
+.....xxxxxxx...o...........
+.....xxxxxxx...............
+......o..............o.....
+..o.......o................
+%>
+
+It is a square indeed. Even though it might not look like it
+visually.
+
+
+#codes
+
+- bsq.c
+#include <stdio.h>
+#include <stdlib.h>
+#include "bsq.h"
+
+// Declare function prototypes
+char **read_map(const char *filename, t_map_info *map_info);
+void find_largest_square(char **map, t_map_info map_info);
+void free_map(char **map, int rows);
+
+int main(int argc, char **argv) {
+    t_map_info map_info;
+    char **map;
+
+    if (argc < 2) {
+        // Handle standard input or show usage message
+        printf("Usage: %s <map_file>\n", argv[0]);
+        return 1;
+    }
+
+    for (int i = 1; i < argc; i++) {
+        map = read_map(argv[i], &map_info);
+        if (!map) {
+            // Handle error in map reading
+            fprintf(stderr, "Map error\n");
+            continue;
+        }
+
+        find_largest_square(map, map_info);
+
+        // Print the map with the largest square marked
+        for (int j = 0; j < map_info.rows; j++) {
+            printf("%s\n", map[j]);
+        }
+
+        if (argc > 2 && i < argc - 1) {
+            printf("\n");  // Separate multiple map outputs
+        }
+
+        free_map(map, map_info.rows);
+    }
+
+    return 0;
+}
+
+void free_map(char **map, int rows) {
+    for (int i = 0; i < rows; i++) {
+        free(map[i]);
+    }
+    free(map);
+}
+
+- find.square.c
+#include "bsq.h"
+#include <stdlib.h>
+
+void update_square_info(t_square *max_square, int row, int col, int size);
+int min(int a, int b, int c);
+
+void find_largest_square(char **map, t_map_info map_info) {
+    int **dp;
+    t_square max_square = {0, 0, 0}; // Initialize max square info
+    int i, j;
+
+    // Allocate memory for the dynamic programming array
+    dp = (int **)malloc(map_info.rows * sizeof(int *));
+    for (i = 0; i < map_info.rows; i++) {
+        dp[i] = (int *)malloc(map_info.cols * sizeof(int));
+    }
+
+    // Fill the dynamic programming array
+    for (i = 0; i < map_info.rows; i++) {
+        for (j = 0; j < map_info.cols; j++) {
+            if (map[i][j] == map_info.obstacle) {
+                dp[i][j] = 0;
+            } else {
+                dp[i][j] = 1;
+                if (i > 0 && j > 0) {
+                    dp[i][j] += min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+                }
+                if (dp[i][j] > max_square.size) {
+                    update_square_info(&max_square, i, j, dp[i][j]);
+                }
+            }
+        }
+    }
+
+    // Mark the largest square on the map
+    for (i = max_square.row; i > max_square.row - max_square.size; i--) {
+        for (j = max_square.col; j > max_square.col - max_square.size; j--) {
+            map[i][j] = map_info.full;
+        }
+    }
+
+    // Free the dynamic programming array
+    for (i = 0; i < map_info.rows; i++) {
+        free(dp[i]);
+    }
+    free(dp);
+}
+
+void update_square_info(t_square *max_square, int row, int col, int size) {
+    max_square->row = row;
+    max_square->col = col;
+    max_square->size = size;
+}
+
+int min(int a, int b, int c) {
+    if (a < b) return (a < c) ? a : c;
+    else return (b < c) ? b : c;
+}
+
+- get_map_info.c
+#include "bsq.h"
+#include <unistd.h>
+#include <stdlib.h>
+
+int get_map_info(int fd, t_map_info *map_info) {
+    char buf[1024]; // Assuming first line will not exceed 1024 characters
+    int bytes_read = 0;
+    int i;
+
+    // Read the first line
+    bytes_read = read(fd, buf, 1024);
+    for (i = 0; i < bytes_read; i++) {
+        if (buf[i] == '\n') {
+            buf[i] = '\0';
+            break;
+        }
+    }
+    if (i == bytes_read) { // Newline not found
+        return 0;
+    }
+
+    // Extract number of rows and characters
+    int num_length = 0;
+    while (buf[num_length] >= '0' && buf[num_length] <= '9') {
+        num_length++;
+    }
+    if (num_length == 0 || i - num_length != 3) { // No digits or not exactly 3 characters following
+        return 0;
+    }
+
+    char num_buf[1024];
+    for (int j = 0; j < num_length; j++) {
+        num_buf[j] = buf[j];
+    }
+    num_buf[num_length] = '\0';
+
+    map_info->rows = atoi(num_buf);
+    map_info->empty = buf[num_length];
+    map_info->obstacle = buf[num_length + 1];
+    map_info->full = buf[num_length + 2];
+
+    // Basic validation
+    if (map_info->empty == map_info->obstacle || map_info->empty == map_info->full || map_info->obstacle == map_info->full) {
+        return 0;
+    }
+
+    return 1; // Return 1 if successful
+}
+
+- map.reader.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "bsq.h"
+
+char **allocate_map(int rows, int cols);
+int get_map_info(int fd, t_map_info *map_info);
+
+char **read_map(const char *filename, t_map_info *map_info) {
+    int fd;
+    char **map;
+    int i;
+
+    fd = open(filename, O_RDONLY);
+    if (fd == -1) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    if (!get_map_info(fd, map_info)) {
+        close(fd);
+        return NULL;
+    }
+
+    map = allocate_map(map_info->rows, map_info->cols);
+    if (!map) {
+        close(fd);
+        return NULL;
+    }
+
+    for (i = 0; i < map_info->rows; i++) {
+        if (read(fd, map[i], map_info->cols) != map_info->cols || map[i][map_info->cols - 1] != '\n') {
+            // Handle error or free allocated memory
+            close(fd);
+            free_map(map, i);
+            return NULL;
+        }
+    }
+
+    close(fd);
+    return map;
+}
+
+char **allocate_map(int rows, int cols) {
+    char **map = malloc(rows * sizeof(char *));
+    if (!map) return NULL;
+
+    for (int i = 0; i < rows; i++) {
+        map[i] = malloc(cols * sizeof(char));
+        if (!map[i]) {
+            // Free previously allocated memory
+            free_map(map, i);
+            return NULL;
+        }
+    }
+    return map;
+}
+
