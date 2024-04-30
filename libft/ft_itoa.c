@@ -6,40 +6,11 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:26:43 by yussaito          #+#    #+#             */
-/*   Updated: 2024/02/19 13:18:14 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:23:54 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-// char	*ft_itoa(int n);
-// static	int	itoa_length(int n);
-
-// int	main(void)
-// {
-// 	char	*str;
-
-// 	/* case1 */
-// 	str = ft_itoa(1234);
-// 	printf("The ft_itoa1 is %s\n", str);
-// 	free(str);
-
-// 	/* case2 */
-// 	str = ft_itoa(-1234);
-// 	printf("The ft_itoa2 is %s\n", str);
-// 	free(str);
-
-// 	/* case3 */
-// 	str = ft_itoa(0);
-// 	printf("The ft_itoa3 is %s\n", str);
-// 	free(str);
-
-// 	/* case4 */
-// 	str = ft_itoa(-2147483648);
-// 	printf("The ft_itoa4 is %s\n", str);
-// 	free(str);
-// 	return (0);
-// }
 
 static	int	itoa_length(int n)
 {

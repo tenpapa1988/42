@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 17:49:15 by yussaito          #+#    #+#             */
-/*   Updated: 2024/04/20 12:18:50 by yussaito         ###   ########.fr       */
+/*   Created: 2024/04/23 13:36:03 by yussaito          #+#    #+#             */
+/*   Updated: 2024/04/23 15:37:02 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	*dest;
-	int		i;
+	t_list	*current;
+	t_list	*next;
 
-	i = 0;
-	while (s1[i] != '\0')
-		i++;
-	dest = (char *)malloc((i + 1) * sizeof(char));
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
+	if (lst == NULL || *lst == NULL || del == NULL)
+		return ;
+	current = *lst;
+	while (current != NULL)
 	{
-		dest[i] = s1[i];
-		i++;
+		next = current->next;
+		del(current->content);
+		free(current);
+		current = next;
 	}
-	dest[i] = '\0';
-	return (dest);
+	*lst = NULL;
 }

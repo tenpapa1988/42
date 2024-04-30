@@ -6,29 +6,13 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 12:06:24 by yussaito          #+#    #+#             */
-/*   Updated: 2024/02/25 12:36:53 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:04:37 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// char	*ft_strtrim(char const *s1, char const *set);
-// int		is_set(char c, char const *set);
-
-// int	main(void)
-// {
-// 	char	str[] = " Hello World  ";
-// 	char	set[] = " ";
-// 	char	*trimmed;
-
-// 	trimmed = ft_strtrim(str, set);
-// 	printf("Before trim is \"%s\"\n", str);
-// 	printf("After trim is \"%s\"\n", trimmed);
-// 	free (trimmed);
-// 	return (0);
-// }
-
-int	is_set(char c, char const *set)
+static	int	is_set(char c, char const *set)
 {
 	while (*set != '\0')
 	{

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 17:49:15 by yussaito          #+#    #+#             */
-/*   Updated: 2024/04/20 12:18:50 by yussaito         ###   ########.fr       */
+/*   Created: 2024/04/21 10:43:22 by yussaito          #+#    #+#             */
+/*   Updated: 2024/04/25 09:40:46 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*dest;
-	int		i;
+	unsigned char	char_c;
+	size_t			n;
 
-	i = 0;
-	while (s1[i] != '\0')
-		i++;
-	dest = (char *)malloc((i + 1) * sizeof(char));
-	if (dest == NULL)
+	char_c = (unsigned char)(c & 0xFF);
+	n = ft_strlen(s);
+	if (char_c == 0)
+		return ((char *)&s[n]);
+	if (n == 0)
 		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
+	n--;
+	while (n > 0)
 	{
-		dest[i] = s1[i];
-		i++;
+		if ((unsigned char)s[n] == char_c)
+			return ((char *)&s[n]);
+		n--;
 	}
-	dest[i] = '\0';
-	return (dest);
+	if ((unsigned char)s[n] == char_c)
+		return ((char *)&s[n]);
+	return (NULL);
 }
