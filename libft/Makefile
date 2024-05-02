@@ -1,6 +1,6 @@
 NAME = libft.a
 
-SRC = ./ft_atoi.c \
+SRCS = ./ft_atoi.c \
 	./ft_bzero.c \
 	./ft_calloc.c \
 	./ft_isalnum.c \
@@ -35,7 +35,7 @@ SRC = ./ft_atoi.c \
 	./ft_tolower.c \
 	./ft_toupper.c \
 
-SRC_BONUS = ./ft_lstnew.c \
+SRCS_BONUS = ./ft_lstnew.c \
 	./ft_lstadd_front.c \
 	./ft_lstsize.c \
 	./ft_lstlast.c \
@@ -45,32 +45,37 @@ SRC_BONUS = ./ft_lstnew.c \
 	./ft_lstiter.c \
 	./ft_lstmap.c
 
-OBJS = $(SRC:.c=.o)
-OBJS_BONUS = $(SRC_BONUS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 HDRS = libft.h
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(HDRS)
 
-.PHONY: all clean fclean re bonus
+ifeq ($(MAKECMDGOALS), bonus)
+    OBJ = $(OBJS) $(OBJS_BONUS)
+else
+    OBJ = $(OBJS)
+endif
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ)
 	ar rc $(NAME) $^
 	ranlib $(NAME)
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	ar rc $(NAME) $^
-	ranlib $(NAME)
+bonus: $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	/bin/rm -f $(OBJS) $(OBJS_BONUS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
+		rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re bonus
