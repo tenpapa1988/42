@@ -6,13 +6,13 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:29:35 by yussaito          #+#    #+#             */
-/*   Updated: 2024/02/28 16:44:01 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/05/04 11:29:37 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
-void	ft_printf(const char *format, ...);
+int	ft_printf(const char *, ...);
 
 int	main(void)
 {
@@ -70,43 +70,68 @@ void	print_num_flags(int num, int width, char pad)
 	}
 	ft_putchar(num % 10 + '0');
 }
-void	ft_printf(const char *format, ...)
+
+int	ft_printf(const char *fmt, ...)
 {
-	va_list args;
-	int		width;
-	char	pad;
-	int		num;
-
-	va_start(args, format);
-
-	while (*format != '\0')
+	va_list		ap;
+	int			n;
+	const char	*start;
+	
+	n = 0;
+	va_start(ap, fmt);
+	if (fmt == NULL)
+		n = -1; //ここは仮置き的な感じ
+	while (n >= 0 && *fmt)
 	{
-		if (*format == '%')
-		{
-			format++;
-			width = 0;
-			pad = ' ';
-			if (*format == '0')
-			{
-				pad = '0';
-				format++;
-			}
-			while ('0' <= *format && *format <= '9')
-			{
-				width = width * 10 + (*format - '0');
-				format++;
-			}
-			if (*format == 'd')
-			{
-				num = va_arg(args, int);
-				print_num_flags(num, width, pad);
-			}
-			else
-			{
-				ft_putchar(*format);
-			}
-			format++;
-		}
+		
+		if (*fmt == "%")
+
+		else
+
+		fmt = va_arg(ap, char *);
 	}
-	va_end (args);
+	
+	return (n); // 文字数を返す
 }
+// int	ft_printf(const char *fmt, ...)
+// {
+// 	va_list args;
+// 	int		width;
+// 	char	pad;
+// 	int		num;
+
+// 	va_start(args, fmt);
+
+// 	while (*fmt != '\0')
+// 	{
+// 		//%のときだけ、ここに入る
+// 		if (*fmt == '%')
+// 		{
+// 			fmt++;
+// 			width = 0;
+// 			pad = ' ';
+// 			if (*fmt == '0')
+// 			{
+// 				pad = '0';
+// 				fmt++;
+// 			}
+// 			while ('0' <= *fmt && *fmt <= '9')
+// 			{
+// 				width = width * 10 + (*fmt - '0');
+// 				fmt++;
+// 			}
+// 			if (*fmt == 'd')
+// 			{
+// 				num = va_arg(args, int);
+// 				print_num_flags(num, width, pad);
+// 			}
+// 			else
+// 			{
+// 				ft_putchar(*fmt);
+// 			}
+// 			fmt++;
+// 		}
+// 		//%じゃない場合には、出力する
+// 	}
+// 	va_end (args);
+// }
