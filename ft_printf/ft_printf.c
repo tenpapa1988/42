@@ -6,11 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:29:35 by yussaito          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/06 13:16:53 by yussaito         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/04 11:29:37 by yussaito         ###   ########.fr       */
->>>>>>> b0bed848ced3f072c362200f5c40dacda7d80f75
+/*   Updated: 2024/05/06 14:07:18 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +71,11 @@ void	print_num_flags(int num, int width, char pad)
 	ft_putchar(num % 10 + '0');
 }
 
+ft_output(const char *start, )
+{
+
+}
+
 int	ft_printf(const char *fmt, ...)
 {
 	va_list		ap;
@@ -87,14 +88,13 @@ int	ft_printf(const char *fmt, ...)
 		n = -1; //ここは仮置き的な感じ
 	while (n >= 0 && *fmt)
 	{
-		
-		if (*fmt == "%")
-
+		start = fmt;
+		if (*start == "%")
+			ft_check()
 		else
-
-		fmt = va_arg(ap, char *);
+			ft_output(&start, )
 	}
-	
+	va_end(ap);
 	return (n); // 文字数を返す
 }
 // int	ft_printf(const char *fmt, ...)

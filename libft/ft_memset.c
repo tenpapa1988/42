@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:01:33 by yussaito          #+#    #+#             */
-/*   Updated: 2024/04/20 12:05:39 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:54:23 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*a;
+	unsigned char	*a;
 	int		i;
 
-	a = (char *)b;
+	a = (unsigned char *)b;
 	i = 0;
 	while (len--)
 	{
