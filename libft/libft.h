@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:04:50 by yussaito          #+#    #+#             */
-/*   Updated: 2024/04/25 15:24:26 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/05/11 11:57:27 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_putendl_fd(char *s, int fd);
 
 void	ft_putnbr_fd(int n, int fd);
 
-void	ft_putstr_fd(char const *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 char	**ft_split(char const *s, char c);
 
