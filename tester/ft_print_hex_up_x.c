@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_print_hex_up_x.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 08:56:56 by yussaito          #+#    #+#             */
-/*   Updated: 2024/05/13 14:14:34 by yussaito         ###   ########.fr       */
+/*   Created: 2024/05/12 15:21:45 by yussaito          #+#    #+#             */
+/*   Updated: 2024/05/12 15:23:22 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h> // open関数のためのヘッダ
+void	ft_print_hex_up_x(unsigned int c, int *len)
+{
+	int				i;
+	unsigned long	num;
+	char			answer[19];
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
-#endif
-
-char	*get_next_line(int fd);
-char	*ft_read(ssize_t *n, int	*i, char *line, int fd);
-
-#endif
+	i = 0;
+	num = (unsigned long)c;
+	if (num == 0)
+	{
+		write(1, "0", 1);
+		(*len)++;
+		return ;
+	}
+	while (num != 0)
+	{
+		answer[i++] = "0123456789ABCDEF"[num % 16];
+		num /= 16;
+	}
+	while (--i >= 0)
+	{
+		write(1, &answer[i], 1);
+		(*len)++;
+	}
+}

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_print_deci.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 08:56:56 by yussaito          #+#    #+#             */
-/*   Updated: 2024/05/13 14:14:34 by yussaito         ###   ########.fr       */
+/*   Created: 2024/05/12 15:22:52 by yussaito          #+#    #+#             */
+/*   Updated: 2024/05/12 15:23:13 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h> // open関数のためのヘッダ
+void	ft_print_deci(unsigned int c, int *len)
+{
+	char			*tmp;
+	int				i;
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
-#endif
-
-char	*get_next_line(int fd);
-char	*ft_read(ssize_t *n, int	*i, char *line, int fd);
-
-#endif
+	tmp = ft_utoa(c);
+	i = 0;
+	while (tmp[i] != '\0')
+	{
+		write(1, &tmp[i], 1);
+		i++;
+		(*len)++;
+	}
+	free(tmp);
+}
