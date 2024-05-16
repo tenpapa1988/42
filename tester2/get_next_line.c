@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 08:56:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/05/14 11:08:31 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:32:39 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 char *get_next_line(int fd)
 {
-	int		i;
-	ssize_t	n;
+	static char *line;
+	size_t		len;
+	// size_t			bufsize;
 
+	line = NULL;
+	len = 0;
+	// bufsize = 0;
 	if (fd < 0)
-		return NULL;
-	char *line = malloc(BUFFER_SIZE * sizeof(char));  // Allocate initial buffer
-	if (!line)
-		return (NULL);  // Return NULL if malloc failed
-	i = 0;
-	line = ft_read(&n, &i, line, fd);
-    if (!line || (n <= 0 && i == 0))
-	{  // No data read or error occurred
-        free(line);
-        return (NULL);
-    }
-	line[i] = '\0';  // Null-terminate the string
-	if (n == 0 && i != 0)
-		return (line);
+		return (NULL);
+	line = ft_read(fd, line, &len);
+	if (len == 0 && line)
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	if (line)
+		line[len] = '\0';
 	return (line);
 }

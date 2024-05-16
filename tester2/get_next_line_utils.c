@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:40 by yussaito          #+#    #+#             */
-/*   Updated: 2024/05/14 10:36:49 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:21:53 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,30 @@ void	*my_realloc(void *ptr, size_t new_size)
     }
 }
 
-char	*ft_read(ssize_t *n, int *i, char *line, int fd)
+char	*ft_read(int fd, char *line, size_t *len)
 {
-	char	buff;
+	size_t	bufsize;
+	char	buf[1];
+	char	*new_line;
 
-	while ((*n = read(fd, &buff, 1)) > 0)
+	bufsize = 0;
+	while (read(fd, buf, 1) > 0)
 	{
-		if (buff == '\n')
+		if (*len >= bufsize)
 		{
-			line[(*i)++] = '\n';
-			break;  // Stop at newline
-		}
-		line[(*i)++] = buff;
-		if (*i >= BUFFER_SIZE -1)  // Check if we need more space, leaving room for null terminator
-		{
-			char *new_line = my_realloc(line, ((*i) + BUFFER_SIZE) * sizeof(char));
+			bufsize += BUFFER_SIZE;
+			new_line = realloc(line, bufsize);
 			if (!new_line)
 			{
 				free(line);
-				return (NULL);  // Return NULL if realloc failed
+				line = NULL;
+				return (NULL);
 			}
-            line = new_line;
-        }
-    }
+			line = new_line;
+		}
+		line[(*len)++] = buf[0];
+		if (buf[0] == '\n')
+			break;		
+	}
 	return (line);
 }
