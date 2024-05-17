@@ -6,24 +6,32 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 14:55:48 by yussaito          #+#    #+#              #
-#    Updated: 2024/05/12 13:26:09 by yussaito         ###   ########.fr        #
+#    Updated: 2024/05/17 06:33:55 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 HDRS = pf_printf.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(HDRS)
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
+SRCS = ./ft_print_char.c \
+		./ft_print_deci.c \
+		./ft_print_hex_low_x.c \
+		./ft_print_hex_p.c \
+		./ft_print_hex_up_x.c \
+		./ft_print_int.c \
+		./ft_print_str.c \
+		./ft_print.c \
+		./utoa.c \
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
 	make -C libft
-	cp ${LIBFT} ${NAME}
+	cp $(LIBFT) $(NAME)
 	ar rc $(NAME) $^
 	ranlib $(NAME)
 
