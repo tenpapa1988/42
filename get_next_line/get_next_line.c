@@ -6,11 +6,21 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 08:56:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/05/24 09:11:53 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:47:25 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_s(int *i, int *c, char *save, char *s)
+{
+	(*i)++;
+	*c = 0;
+	while (save[*i])
+		s[(*c)++] = save[(*i)++];
+	s[*c] = '\0';
+	return (s);
+}
 
 char	*ft_save(char *save)
 {
@@ -28,12 +38,12 @@ char	*ft_save(char *save)
 	}
 	s = (char *)malloc((ft_strlen(save) - i + 1) * sizeof(char));
 	if (!s)
+	{
+		free(save);
+		save = NULL;
 		return (NULL);
-	i++;
-	c = 0;
-	while (save[i])
-		s[c++] = save[i++];
-	s[c] = '\0';
+	}
+	ft_s(&i, &c, save, s);
 	free(save);
 	return (s);
 }
@@ -94,12 +104,18 @@ char	*get_next_line(int fd)
 {
 	static char	*save;
 	char		*line;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	save = ft_read(fd, save);
-	if (!save)
 		return (NULL);
+	tmp = ft_read(fd, save);
+	if (!tmp)
+	{
+		free(save);
+		save = NULL;
+		return (NULL);
+	}
+	save = tmp;
 	line = ft_get_line(save);
 	save = ft_save(save);
 	return (line);
