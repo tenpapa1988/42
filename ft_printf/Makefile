@@ -6,7 +6,7 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/08 14:55:48 by yussaito          #+#    #+#              #
-#    Updated: 2024/05/17 06:33:55 by yussaito         ###   ########.fr        #
+#    Updated: 2024/06/12 14:14:38 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRCS = ./ft_print_char.c \
 		./ft_print_hex_up_x.c \
 		./ft_print_int.c \
 		./ft_print_str.c \
-		./ft_print.c \
-		./utoa.c \
+		./ft_printf.c \
+		./ft_utoa.c \
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
