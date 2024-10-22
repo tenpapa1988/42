@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:10:10 by tshigena          #+#    #+#             */
-/*   Updated: 2024/10/18 16:34:11 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:35:34 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_bool	check_middle_row(char *row, size_t width, t_game *game)
 				return (FALSE);
 		}
 		if (*row == 'E')
-			game->map.num_exit += 1;
+			game->map.num_exit += 1;//ここでexitが2つ上のエラーハンドリングを行っていないので、行う必要がある（Pのときと同じように書けばよいはず）
 		row++;
 	}
 	return (TRUE);

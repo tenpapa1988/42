@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_image_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 17:08:41 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/12 15:40:55 by tshigena         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:11:14 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	select_image(t_game *game, char c)
 	char	*path;
 
 	if (c == '1')
-		path = (char *)g_assets_path[WALL];
+		path = (char *)g_assets_path[WALL];//ヘッダーファイルのe_componentsにて定義されている。WALL=0なので、g_asets_path[0]と連動している
 	else if (c == '0')
 		path = (char *)g_assets_path[FLOOR];
 	else if (c == 'C')
