@@ -6,11 +6,22 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/22 09:29:39 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:42:04 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+void	free_all(t_game game, char **map, size_t i)
+{
+	while (i > 0)
+		free(map[--i]);
+	free(map);
+	mlx_clear_window(game.mlx, game.mlx_win);
+	mlx_destroy_window(game.mlx, game.mlx_win);
+	mlx_destroy_display(game.mlx);
+	free(game.mlx);
+}
 
 void	error_exit(char *message)
 {

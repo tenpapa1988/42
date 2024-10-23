@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:02:41 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/12 17:33:29 by tshigena         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:54:14 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
+# include <stdlib.h>//mallocやfreeで利用
+# include <unistd.h>//reaadやwriteで利用
+# include <stdio.h>//fcloseやperrorで使用
+# include <fcntl.h>//open関数を使用するためにインクルード
 # include <string.h>
-# include <errno.h>
+# include <errno.h>//errnoを使うためのヘッダーファイル
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 

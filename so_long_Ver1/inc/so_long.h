@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/22 08:40:27 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:54:54 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../minilibx-linux/mlx.h"
 
 # define E_KEY_PRESS 2
-# define E_KEY_RESIZE 9
+# define E_WIN_RESIZE 9
 # define E_WIN_CLOSE 17
 
 # define M_KEY_PRESS 1
@@ -85,11 +85,5 @@ typedef struct  s_game
 	t_player	player;
 	size_t		move_count;
 } t_game;
-
-
-
-
-
-
 
 #endif
