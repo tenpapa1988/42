@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 09:38:22 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:08:39 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 const char	*g_assets_path[5] = {
 	"assets/wall/wall.xpm",
-	"assets/floor/fllor.xpm",
+	"assets/floor/floor.xpm",
 	"assets/player/player.xpm",
 	"assets/exit/exit.xpm",
 	"assets/sprite/sprite.xpm",
@@ -24,7 +24,7 @@ void	ft_put_image_to_window(t_game *game, size_t x, size_t y)
 {
 	x *= IMAGE_SIZE;
 	y *= IMAGE_SIZE;
-	mlx_put_image_to_window(game->mlx, game->mlx, game->img.img, x, y);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, x, y);
 }
 
 void	select_image(t_game *game, char c)
