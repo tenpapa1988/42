@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:04:50 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/23 09:39:01 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:53:06 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+/* Standard libft functions */
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -75,10 +76,14 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*get_next_line(int fd);
 char	*ft_read(int fd, char *save);
+
+/* get_next_line and related functions */
+char	*ft_get_line(char *save);
+char	*ft_read(int fd, char *save);
 char	*ft_get_line(char *save);
 char	*ft_save(char *save);
 char	*ft_s(int *i, int *c, char *save, char *s);
-char	*ft_strjoin_g(char *s1, char *s2);
-char	*ft_strchr_g(char *s, int c);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*gnl_strchr(char *s, int c);
 
 #endif

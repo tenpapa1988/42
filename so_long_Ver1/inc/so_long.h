@@ -6,11 +6,11 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/23 08:54:54 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:41:20 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_h
+#ifndef SO_LONG_H
 # define SO_LONG_H
 
 # include <stdlib.h>
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <errno.h>
 # include "../libft/libft/libft.h"
+# include "../libft/ft_printf/ft_printf.h"
 # include "../minilibx-linux/mlx.h"
 
 # define E_KEY_PRESS 2
@@ -85,5 +86,23 @@ typedef struct  s_game
 	t_player	player;
 	size_t		move_count;
 } t_game;
+
+int		open_if_file_is_valid(char *argv1);
+void	free_all(t_game game, char **map, size_t i);
+void	error_exit(char *message);
+
+void	get_map_data(int fd, t_game *game);
+
+void	error_exit_with_lstclear(t_list *map, char *message);
+void	move_list_to_double_pointer(t_game *game, t_list *map);
+
+int		ft_input(int key, void *game_);
+int		close_window(t_game *game);
+int		minimize_window(t_game *game);
+
+void	ft_put_image_to_window(t_game *game, size_t x, size_t y);
+void	select_image(t_game *game, char c);
+void	get_image(t_game *game);
+t_bool	can_move(t_game *game, char next_position);
 
 #endif

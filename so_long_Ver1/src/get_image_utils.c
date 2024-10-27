@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/26 14:58:15 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 09:38:22 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 const char	*g_assets_path[5] = {
 	"assets/wall/wall.xpm",
 	"assets/floor/fllor.xpm",
-	"assets/player/player2.xpm",
-	"assets/exit/exit2.xpm",
-	"assets/sprite/sprite2.xpm",
+	"assets/player/player.xpm",
+	"assets/exit/exit.xpm",
+	"assets/sprite/sprite.xpm",
 };
 
 void	ft_put_image_to_window(t_game *game, size_t x, size_t y)
@@ -62,7 +62,7 @@ void	get_image(t_game *game)
 		{
 			select_image(game, game->map.map[y][x]);
 			ft_put_image_to_window(game, x, y);
-			mlx_destroy_iimage(game->mlx, game->img.img);
+			mlx_destroy_image(game->mlx, game->img.img);
 			if (game->map.map[y][x] == 'P')
 			{
 				game->player.x = x;
@@ -85,7 +85,7 @@ t_bool	can_move(t_game *game, char next_position)
 	if (next_position != '1')
 	{
 		game->move_count += 1;
-		printf("move count-> %zu\n", game->move_count);
+		ft_printf("move count-> %zu\n", game->move_count);
 		return (TRUE);	
 	}
 	return (FALSE);

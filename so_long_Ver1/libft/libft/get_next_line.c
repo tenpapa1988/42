@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 08:56:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/23 09:34:22 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:58:20 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_read(int fd, char *save)
 	if (!tmp)
 		return (NULL);
 	read_rtn = 1;
-	while (!ft_strchr_g(save, '\n') && read_rtn != 0)
+	while (!gnl_strchr(save, '\n') && read_rtn != 0)
 	{
 		read_rtn = read(fd, tmp, BUFFER_SIZE);
 		if (read_rtn == -1)
@@ -94,7 +94,7 @@ char	*ft_read(int fd, char *save)
 			return (NULL);
 		}
 		tmp[read_rtn] = '\0';
-		save = ft_strjoin_g(save, tmp);
+		save = gnl_strjoin(save, tmp);
 	}
 	free(tmp);
 	return (save);

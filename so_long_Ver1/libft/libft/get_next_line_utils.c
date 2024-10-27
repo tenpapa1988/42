@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:40 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/23 09:33:56 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:52:49 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_check_s1(char **s1)
 	}
 }
 
-char	*ft_strchr_g(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ char	*ft_strchr_g(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin_g(char *s1, char *s2)
+char	*gnl_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	c;

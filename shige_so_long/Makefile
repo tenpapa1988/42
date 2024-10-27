@@ -34,4 +34,4 @@ fclean: clean
 	rm -f $(LIBFT)
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re	

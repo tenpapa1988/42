@@ -6,13 +6,13 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:44:16 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/23 11:28:06 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 10:56:03 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	error_exit_with_lsclear(t_list *map, char *message)
+void	error_exit_with_lstclear(t_list *map, char *message)
 {
 	ft_lstclear(&map, free);
 	error_exit(message);
@@ -26,7 +26,7 @@ void	move_list_to_double_pointer(t_game *game, t_list *map)
 	i = 0;
 	game->map.map = (char **)ft_calloc(game->map.height + 1, sizeof(char *));
 	if (game->map.map == NULL)
-		error_exit_with_lsclear(map, "failed malloc");
+		error_exit_with_lstclear(map, "failed malloc");
 	tmp = map;
 	while (i < game->map.height)
 	{

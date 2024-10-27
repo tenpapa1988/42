@@ -6,11 +6,36 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:30:56 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/26 14:45:24 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 08:41:29 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+static int	ft_update(void *game_, size_t x, size_t y)
+{
+	t_game	*game;
+
+	game = (t_game *)game_;
+	if (x != game->player.x || y != game->player.y)
+		select_image(game, 'P');
+	else
+		return (0);
+	ft_put_image_to_window(game, game->player.x, game->player.y);
+	mlx_destroy_image(game->mlx, game->img.img);
+	select_image(game, '0');
+	ft_put_image_to_window(game, x, y);
+	mlx_destroy_image(game->mlx, game->img.img);
+	game->map.map[y][x] = '0';
+	x = game->player.x;
+	y = game->player.y;
+	if (game->map.map[y][x] == 'C')
+	{
+		game->map.num_collectible -= 1;
+	}
+	game->map.map[y][x] = 'P';
+	return (0);
+}
 
 static void	set_player_position(t_game *game, size_t x, size_t y)
 {
@@ -42,5 +67,17 @@ int	ft_input(int key, void *game_)
 		ft_update(game, x, y);
 	else
 		set_player_position(game, x, y);
+	return (0);
+}
+
+int	close_window(t_game *game)
+{
+	mlx_loop_end(game->mlx);
+	return (0);
+}
+
+int	minimize_window(t_game *game)
+{
+	get_image(game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:11:30 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/12 13:30:57 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/10/27 12:37:27 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 int		ft_printf(const char *fmt, ...);
 char	*ft_utoa(unsigned int n);
