@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 12:41:20 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/01 08:23:11 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ typedef struct  s_player
 
 typedef struct  s_game
 {
-	t_map		map;
-	void		*mlx;
-	void		*mlx_win;
-	t_img		img;
-	t_player	player;
-	size_t		move_count;
+	t_map			map;
+	void			*mlx;
+	void			*mlx_win;
+	t_img			img;
+	t_player		player;
+	unsigned int	move_count;
 } t_game;
 
 int		open_if_file_is_valid(char *argv1);

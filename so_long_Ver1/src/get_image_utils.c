@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 15:08:39 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/01 08:22:27 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_bool	can_move(t_game *game, char next_position)
 	if (next_position != '1')
 	{
 		game->move_count += 1;
-		ft_printf("move count-> %zu\n", game->move_count);
+		ft_printf("move count-> %u\n", game->move_count);
 		return (TRUE);	
 	}
 	return (FALSE);

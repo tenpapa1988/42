@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 10:28:46 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/01 08:59:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	if (argc != 2)
-		error_exit("invalid argumenr");
+		error_exit("invalid argument");
 	fd = open_if_file_is_valid(argv[1]);
 	game = (t_game){0};
 	get_map_data(fd, &game);
