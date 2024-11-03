@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:10:10 by tshigena          #+#    #+#             */
-/*   Updated: 2024/10/20 14:35:34 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/04 07:41:26 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+//Eの箇所について、実際にはPと同様のif文を入れてるそれ以外は一番左と右以外の箇所を10CPEがあるか？チェックしてる
 static t_bool	check_middle_row(char *row, size_t width, t_game *game)
 {
-	if (row[0] != '1' || row[width - 1] != '1')
+	if (row[0] != '1' || row[width - 1] != '1')//チェックする行の一番左と右が1であるかをチェック
 		return (FALSE);
 	while (*row)
 	{
@@ -34,7 +35,7 @@ static t_bool	check_middle_row(char *row, size_t width, t_game *game)
 	}
 	return (TRUE);
 }
-
+//最初の行と最後の行がすべて1（壁）かどうか？をチェックする
 static t_bool	check_edge_row(char *row)
 {
 	while (*row)
@@ -60,7 +61,10 @@ static size_t	map_row_len(const char *row)
 	return (i);
 }
 
-static t_bool	get_map_info(t_list *map, t_game *game)
+//下記の関数でやりたいことは、map情報が正しいかどうか？
+//game->map.width != map_row_len(map->contentの条件文はあくまで行数が同じか？をチェック
+//不要な文字や端が1で終わっているか？のチェックはcheck_middle_row関数やcheck_edge_row関数に任せてる
+static t_bool	get_map_info(t_list *map, t_game *game)//t_listはlibft.hに定義されてる
 {
 	size_t	i;
 

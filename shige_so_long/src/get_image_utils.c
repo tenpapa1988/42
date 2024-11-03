@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_image_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 17:08:41 by tshigena          #+#    #+#             */
-/*   Updated: 2024/10/20 13:11:14 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/04 08:31:18 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ const char	*g_assets_path[5] = {
 	"assets/sprite/sprite2.xpm",
 };
 
+//select_image関数で取得した画像をこの関数でWindowに表示させる
 void	ft_put_image_to_window(t_game *game, size_t x, size_t y)
 {
 	x *= IMAGE_SIZE;
@@ -27,6 +28,7 @@ void	ft_put_image_to_window(t_game *game, size_t x, size_t y)
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, x, y);
 }
 
+//文字に応じて画像を取得＆mlx_xpm_file_to_imageで当てはめる
 void	select_image(t_game *game, char c)
 {
 	char	*path;
@@ -44,7 +46,7 @@ void	select_image(t_game *game, char c)
 	else
 		path = NULL;
 	game->img.img = mlx_xpm_file_to_image(game->mlx, path, \
-		&game->img.img_height, &game->img.img_width);
+		&game->img.img_height, &game->img.img_width);//game->img.imgに画像データを格納する
 	if (game->img.img == NULL)
 		error_exit("get_image failed.");
 }
@@ -62,8 +64,8 @@ void	get_image(t_game *game)
 		{
 			select_image(game, game->map.map[y][x]);
 			ft_put_image_to_window(game, x, y);
-			mlx_destroy_image(game->mlx, game->img.img);
-			if (game->map.map[y][x] == 'P')
+			mlx_destroy_image(game->mlx, game->img.img);//既にgame->img.imgを使用したので、ここで解放
+			if (game->map.map[y][x] == 'P')//ダブルポインタをmove_list_to_double_pointer関数で実現してる。yは縦、xは横。Pの位置を記録してる
 			{
 				game->player.x = x;
 				game->player.y = y;
