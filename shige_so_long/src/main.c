@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:16:16 by tshigena          #+#    #+#             */
-/*   Updated: 2024/11/04 08:57:44 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:15:46 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ int	main(int argc, char **argv)
 	if (game.mlx_win == NULL)
 		error_exit(strerror(errno));
 	get_image(&game);
-	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);
-	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);
-	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);
-	mlx_loop(game.mlx);
-	free_all(game, game.map.map, game.map.height);
+	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);//プレーヤーが動くOR ESCで閉じる
+	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);//Winddowを閉じる
+	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);//WindowをMinimizeする
+	mlx_loop(game.mlx);//プログラミングが終了するまで継続的に存在し続ける関数
+	free_all(game, game.map.map, game.map.height);//freeする
 	exit (0);
 }
+//mlx_hook関数では、第1引数にはイベントを設定する対象のウィンドウ。第2引数は発生したときに反応するイベントの種類。第3引数はイベントマスク。第4引数は指定したイベントが発生したときに実行する関数。第5引数は第4引数の関数に引き継ぐパラメータ。

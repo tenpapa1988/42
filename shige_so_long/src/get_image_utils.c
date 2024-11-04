@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 17:08:41 by tshigena          #+#    #+#             */
-/*   Updated: 2024/11/04 08:31:18 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:21:17 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	get_image(t_game *game)
 
 t_bool	can_move(t_game *game, char next_position)
 {
-	if (next_position == 'E')
+	if (next_position == 'E')//Exitの場合にCが0か？をチェックして、0なら閉じる
 	{
 		if (game->map.num_collectible == 0)
 			mlx_loop_end(game->mlx);
 		return (FALSE);
 	}
-	if (next_position != '1')
+	if (next_position != '1')//1じゃなければ動く
 	{
 		game->move_count += 1;
 		printf("move count-> %zu\n", game->move_count);

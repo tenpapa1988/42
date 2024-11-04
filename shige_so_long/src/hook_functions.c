@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 17:01:47 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/08 23:46:01 by tshigena         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:26:19 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	ft_update(void *game_, size_t x, size_t y)
 	return (0);
 }
 
+//ここでの位置の再設定は不要に見えるけど、Bonusをやろうとした際や保険として再度設定していると考えられる
 static void	set_player_position(t_game *game, size_t x, size_t y)
 {
 	game->player.x = x;
@@ -49,10 +50,10 @@ int	ft_input(int key, void *game_)
 	size_t	y;
 	t_game	*game;
 
-	game = (t_game *)game_;
+	game = (t_game *)game_;//_を付けるとポインタ変数であることを意味するらしい（慣例的に）
 	x = game->player.x;
 	y = game->player.y;
-	if (key == ESC)
+	if (key == ESC)//ESCだったらclose_window関数と同様に閉じる
 		mlx_loop_end(game->mlx);
 	if (key == W)
 		game->player.y -= 1;
