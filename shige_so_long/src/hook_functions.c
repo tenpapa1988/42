@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 17:01:47 by tshigena          #+#    #+#             */
-/*   Updated: 2024/11/04 10:26:19 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:23:19 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ static int	ft_update(void *game_, size_t x, size_t y)
 		select_image(game, 'P');
 	else
 		return (0);
-	ft_put_image_to_window(game, game->player.x, game->player.y);
-	mlx_destroy_image(game->mlx, game->img.img);
-	select_image(game, '0');
-	ft_put_image_to_window(game, x, y);
-	mlx_destroy_image(game->mlx, game->img.img);
-	game->map.map[y][x] = '0';
-	x = game->player.x;
-	y = game->player.y;
-	if (game->map.map[y][x] == 'C')
+	ft_put_image_to_window(game, game->player.x, game->player.y);//新しい場所にPを表示
+	mlx_destroy_image(game->mlx, game->img.img);//Pのメモリを解放（開放しても、画像は表示されたままになる仕様らしい）
+	select_image(game, '0');//背景画像を取得
+	ft_put_image_to_window(game, x, y);//背景画像を元の位置にセット
+	mlx_destroy_image(game->mlx, game->img.img);//メモリを開放
+	game->map.map[y][x] = '0';//元の位置のマップを0（背景画像）にする
+	x = game->player.x;//位置を更新
+	y = game->player.y;//位置を更新
+	if (game->map.map[y][x] == 'C')//もし新しいマップの位置にCがあったらif文に入る
 	{
-		game->map.num_collectible -= 1;
+		game->map.num_collectible -= 1;//Cを減らす
 	}
-	game->map.map[y][x] = 'P';
+	game->map.map[y][x] = 'P';//その後にPを表示（Cの上書き）
 	return (0);
 }
 
