@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:44:16 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 10:56:03 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:37:49 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	move_list_to_double_pointer(t_game *game, t_list *map)
 	tmp = map;
 	while (i < game->map.height)
 	{
-		game->map.map[i] = tmp->content;
+		game->map.map[i] = ft_strdup(tmp->content);
+		if (!game->map.map[i])
+			error_exit_with_lstclear(map, "faild malloc for map row");
 		tmp = tmp->next;
 		i++;
 	}
-	ft_lstclear(&map, NULL);
+	ft_lstclear(&map, free);
 }
