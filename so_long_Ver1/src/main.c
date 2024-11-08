@@ -6,21 +6,27 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/08 11:42:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:13:58 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	free_all(t_game game, char **map, size_t i)
+void	free_all(t_game *game, char **map, size_t i)
 {
-	while (i > 0)
-		free(map[--i]);
-	free(map);
-	mlx_clear_window(game.mlx, game.mlx_win);
-	mlx_destroy_window(game.mlx, game.mlx_win);
-	mlx_destroy_display(game.mlx);
-	free(game.mlx);
+	if (map)
+	{
+		while (i > 0)
+			free(map[--i]);
+		free(map);
+	}
+	if (game->mlx_win)
+		mlx_destroy_window(game->mlx, game->mlx_win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
 }
 
 void	error_exit(char *message)
@@ -44,6 +50,25 @@ int	open_if_file_is_valid(char *argv1)
 	return (fd);
 }
 
+static void	initialize_game(t_game *game, char *program_name)
+{
+	game->mlx = mlx_init();
+	if (game->mlx == NULL)
+	{
+		free_all(game, game->map.map, game->map.height);
+		error_exit("X Server Failed");
+	}
+	game->mlx_win = mlx_new_window(game->mlx, game->map.width * IMAGE_SIZE,
+				game->map.height * IMAGE_SIZE, program_name);
+	if (game->mlx_win == NULL)
+	{
+		free_all(game, game->map.map, game->map.height);
+		error_exit("Failed to create window");
+	}
+	init_assets_path(game);
+	get_image(game);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -55,19 +80,11 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	get_map_data(fd, &game);
 	close(fd);
-	init_assets_path(&game);
-	game.mlx = mlx_init();
-	if (game.mlx == NULL)
-		error_exit(strerror(errno));
-	game.mlx_win = mlx_new_window(game.mlx, game.map.width * IMAGE_SIZE,
-			game.map.height * IMAGE_SIZE, argv[0]);
-	if (game.mlx_win == NULL)
-		error_exit(strerror(errno));
-	get_image(&game);
+	initialize_game(&game, argv[0]);
 	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);
 	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);
 	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);
 	mlx_loop(game.mlx);
-	free_all(game, game.map.map, game.map.height);
+	free_all(&game, game.map.map, game.map.height);
 	exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/08 11:43:38 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:55:15 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct  s_game
 } t_game;
 
 int		open_if_file_is_valid(char *argv1);
-void	free_all(t_game game, char **map, size_t i);
+void	free_all(t_game *game, char **map, size_t i);
 void	error_exit(char *message);
 
 void	get_map_data(int fd, t_game *game);
