@@ -6,19 +6,20 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/01 08:22:27 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:43:43 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-const char	*g_assets_path[5] = {
-	"assets/wall/wall.xpm",
-	"assets/floor/floor.xpm",
-	"assets/player/player.xpm",
-	"assets/exit/exit.xpm",
-	"assets/sprite/sprite.xpm",
-};
+void	init_assets_path(t_game *game)
+{
+	game->assets_path[WALL] = "assets/wall/wall.xpm";
+	game->assets_path[FLOOR] = "assets/floor/floor.xpm";
+	game->assets_path[PLAYER] = "assets/player/player.xpm";
+	game->assets_path[EXIT] = "assets/exit/exit.xpm";
+	game->assets_path[COLLECTIBLE] = "assets/sprite/sprite.xpm";
+}
 
 void	ft_put_image_to_window(t_game *game, size_t x, size_t y)
 {
@@ -32,19 +33,19 @@ void	select_image(t_game *game, char c)
 	char	*path;
 
 	if (c == '1')
-		path = (char *)g_assets_path[WALL];
+		path = (char *)game->assets_path[WALL];
 	else if (c == '0')
-		path = (char *)g_assets_path[FLOOR];
+		path = (char *)game->assets_path[FLOOR];
 	else if (c == 'C')
-		path = (char *)g_assets_path[COLLECTIBLE];
+		path = (char *)game->assets_path[COLLECTIBLE];
 	else if (c == 'P')
-		path = (char *)g_assets_path[PLAYER];
+		path = (char *)game->assets_path[PLAYER];
 	else if (c == 'E')
-		path = (char *)g_assets_path[EXIT];
+		path = (char *)game->assets_path[EXIT];
 	else
 		path = NULL;
 	game->img.img = mlx_xpm_file_to_image(game->mlx, path,
-		&game->img.img_height, &game->img.img_width);
+			&game->img.img_height, &game->img.img_width);
 	if (game->img.img == NULL)
 		error_exit("get_image failed.");
 }
@@ -86,7 +87,7 @@ t_bool	can_move(t_game *game, char next_position)
 	{
 		game->move_count += 1;
 		ft_printf("move count-> %u\n", game->move_count);
-		return (TRUE);	
+		return (TRUE);
 	}
 	return (FALSE);
 }

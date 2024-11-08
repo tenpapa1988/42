@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/01 08:59:10 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:42:08 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	open_if_file_is_valid(char *argv1)
 	size_t	argv1_len;
 
 	argv1_len = ft_strlen(argv1);
-	if(argv1_len < 4 || ft_strncmp(argv1 + argv1_len - 4, ".ber", 5))
+	if (argv1_len < 4 || ft_strncmp(argv1 + argv1_len - 4, ".ber", 5))
 		error_exit("invalid extension");
 	fd = open(argv1, O_RDONLY);
 	if (fd == -1)
@@ -55,10 +55,12 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	get_map_data(fd, &game);
 	close(fd);
+	init_assets_path(&game);
 	game.mlx = mlx_init();
 	if (game.mlx == NULL)
 		error_exit(strerror(errno));
-	game.mlx_win = mlx_new_window(game.mlx, game.map.width * IMAGE_SIZE, game.map.height * IMAGE_SIZE, argv[0]);
+	game.mlx_win = mlx_new_window(game.mlx, game.map.width * IMAGE_SIZE,
+			game.map.height * IMAGE_SIZE, argv[0]);
 	if (game.mlx_win == NULL)
 		error_exit(strerror(errno));
 	get_image(&game);

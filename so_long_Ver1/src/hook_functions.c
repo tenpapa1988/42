@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:30:56 by yussaito          #+#    #+#             */
-/*   Updated: 2024/10/27 08:41:29 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:50:30 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	set_player_position(t_game *game, size_t x, size_t y)
 	game->player.x = x;
 	game->player.y = y;
 }
+
 int	ft_input(int key, void *game_)
 {
 	size_t	x;

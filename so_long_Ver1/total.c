@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   total.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/07 13:28:31 by yussaito         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/so_long.h"
+
 
 const char	*g_assets_path[5] = {
 	"assets/wall/wall.xpm",
@@ -92,6 +81,7 @@ t_bool	can_move(t_game *game, char next_position)
 }
 
 
+
 void	error_exit_with_lstclear(t_list *map, char *message)
 {
 	ft_lstclear(&map, free);
@@ -110,12 +100,15 @@ void	move_list_to_double_pointer(t_game *game, t_list *map)
 	tmp = map;
 	while (i < game->map.height)
 	{
-		game->map.map[i] = tmp->content;
+		game->map.map[i] = ft_strdup(tmp->content);
+		if (!game->map.map[i])
+			error_exit_with_lstclear(map, "faild malloc for map row");
 		tmp = tmp->next;
 		i++;
 	}
-	ft_lstclear(&map, NULL);
+	ft_lstclear(&map, free);
 }
+
 
 static t_bool check_map_dimensions(t_list *map, size_t width)
 {
@@ -288,7 +281,6 @@ void get_map_data(int fd, t_game *game)
     if (head.next == NULL || head.next->content == NULL || get_map_info(head.next, game) == FALSE)
         error_exit_with_lstclear(head.next, "invalid map");
     move_list_to_double_pointer(game, head.next);
-	// ft_lstclear(&head.next, free);
 }
 
 

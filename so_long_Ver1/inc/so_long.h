@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/01 08:23:11 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:43:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct  s_game
 	t_img			img;
 	t_player		player;
 	unsigned int	move_count;
+	const char		*assets_path[5];
 } t_game;
 
 int		open_if_file_is_valid(char *argv1);
@@ -93,13 +94,23 @@ void	error_exit(char *message);
 
 void	get_map_data(int fd, t_game *game);
 
-void	error_exit_with_lstclear(t_list *map, char *message);
-void	move_list_to_double_pointer(t_game *game, t_list *map);
+size_t	map_row_len(const char *row);
+t_bool	check_initial_row(t_list *map, t_game *game);
+t_bool	check_middle_row(char *row, char *prev_row, char *next_row, t_game *game);
+t_bool	check_middle_rows(t_list *map, t_game *game);
+t_bool	check_final_row(t_list *map);
+
+t_bool	check_map_dimensions(t_list *map, size_t width);
+t_bool	check_edge_row(char *row);
+t_bool	check_row_borders(char *row, size_t width);
+t_bool	check_row_elements(char *row, t_game *game, size_t i);
+t_bool	check_exit_surrounded(char *row, char *prev_row, char *next_row, size_t index);
 
 int		ft_input(int key, void *game_);
 int		close_window(t_game *game);
 int		minimize_window(t_game *game);
 
+void	init_assets_path(t_game *game);
 void	ft_put_image_to_window(t_game *game, size_t x, size_t y);
 void	select_image(t_game *game, char c);
 void	get_image(t_game *game);

@@ -6,35 +6,82 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:44:16 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/07 13:37:49 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:28:17 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	error_exit_with_lstclear(t_list *map, char *message)
-{
-	ft_lstclear(&map, free);
-	error_exit(message);
-}
-
-void	move_list_to_double_pointer(t_game *game, t_list *map)
+size_t	map_row_len(const char *row)
 {
 	size_t	i;
-	t_list	*tmp;
 
 	i = 0;
-	game->map.map = (char **)ft_calloc(game->map.height + 1, sizeof(char *));
-	if (game->map.map == NULL)
-		error_exit_with_lstclear(map, "failed malloc");
-	tmp = map;
-	while (i < game->map.height)
+	if (!row)
+		return (0);
+	while (*row)
 	{
-		game->map.map[i] = ft_strdup(tmp->content);
-		if (!game->map.map[i])
-			error_exit_with_lstclear(map, "faild malloc for map row");
-		tmp = tmp->next;
+		if (ft_strchr("10CPE", *row))
+			i++;
+		row++;
+	}
+	return (i);
+}
+
+t_bool	check_initial_row(t_list *map, t_game *game)
+{
+	if (!map || !map->content)
+		return (FALSE);
+	game->map.width = map_row_len(map->content);
+	if (!map->next || !check_map_dimensions(map, game->map.width)
+		|| !check_edge_row(map->content))
+		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	check_middle_row(char *row, char *prev_row,
+						char *next_row, t_game *game)
+{
+	size_t	i;
+
+	i = 0;
+	if (!check_row_borders(row, game->map.width))
+		return (FALSE);
+	while (row[i])
+	{
+		if (!check_row_elements(row, game, i))
+			return (FALSE);
+		if (row[i] == 'E' && check_exit_surrounded(row, prev_row, next_row, i))
+			return (FALSE);
 		i++;
 	}
-	ft_lstclear(&map, free);
+	return (TRUE);
+}
+
+t_bool	check_middle_rows(t_list *map, t_game *game)
+{
+	char	*prev_row;
+	char	*next_row;
+
+	if (!map || !map->content)
+		return (FALSE);
+	prev_row = map->content;
+	while (map && map->next)
+	{
+	next_row = map->next->content;
+		if (!check_middle_row(map->content, prev_row, next_row, game))
+			return (FALSE);
+		prev_row = map->content;
+	map = map->next;
+	}
+	return (TRUE);
+}
+
+t_bool	check_final_row(t_list *map)
+{
+	if (!map || !map->content)
+		return (FALSE);
+	if (!check_edge_row(map->content))
+		return (FALSE);
+	return (TRUE);
 }
