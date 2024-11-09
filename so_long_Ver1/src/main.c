@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/08 13:13:58 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:54:33 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	get_map_data(fd, &game);
 	close(fd);
+	game.player_on_exit = 0;
+	game.floor_under_player = 0;
 	initialize_game(&game, argv[0]);
 	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);
 	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);

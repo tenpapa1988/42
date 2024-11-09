@@ -1,5 +1,116 @@
 
 
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <string.h>
+# include <errno.h>
+# include "../libft/libft/libft.h"
+# include "../libft/ft_printf/ft_printf.h"
+# include "../minilibx-linux/mlx.h"
+
+# define E_KEY_PRESS 2
+# define E_WIN_RESIZE 9
+# define E_WIN_CLOSE 17
+
+# define M_KEY_PRESS 1
+# define M_WIN_RESIZE 2097152
+# define M_WIN_CLOSE 131072
+
+# define IMAGE_SIZE 32
+
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define ESC 65307
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+} t_bool;
+
+enum	e_components
+{
+	WALL,
+	FLOOR,
+	PLAYER,
+	EXIT,
+	COLLECTIBLE
+};
+
+typedef struct s_map
+{
+	char	**map;
+	size_t	width;
+	size_t	height;
+	size_t	num_collectible;
+	size_t	num_exit;
+	size_t	num_s_position;
+} t_map;
+
+typedef struct s_img
+{
+	void	*img;
+	int		img_width;
+	int		img_height;
+} t_img;
+
+typedef struct  s_player
+{
+	size_t	x;
+	size_t	y;
+} t_player;
+
+typedef struct  s_game
+{
+	t_map			map;
+	void			*mlx;
+	void			*mlx_win;
+	t_img			img;
+	t_player		player;
+	unsigned int	move_count;
+	const char		*assets_path[5];
+	int				player_on_exit;
+	char			floor_under_player;
+} t_game;
+
+int		open_if_file_is_valid(char *argv1);
+void	free_all(t_game *game, char **map, size_t i);
+void	error_exit(char *message);
+
+void	get_map_data(int fd, t_game *game);
+
+size_t	map_row_len(const char *row);
+t_bool	check_initial_row(t_list *map, t_game *game);
+t_bool	check_middle_row(char *row, char *prev_row, char *next_row, t_game *game);
+t_bool	check_middle_rows(t_list *map, t_game *game);
+t_bool	check_final_row(t_list *map);
+
+t_bool	check_map_dimensions(t_list *map, size_t width);
+t_bool	check_edge_row(char *row);
+t_bool	check_row_borders(char *row, size_t width);
+t_bool	check_row_elements(char *row, t_game *game, size_t i);
+t_bool	check_exit_surrounded(char *row, char *prev_row, char *next_row, size_t index);
+
+int		ft_input(int key, void *game_);
+int		close_window(t_game *game);
+int		minimize_window(t_game *game);
+
+void	init_assets_path(t_game *game);
+void	ft_put_image_to_window(t_game *game, size_t x, size_t y);
+void	select_image(t_game *game, char c);
+void	get_image(t_game *game);
+t_bool	can_move(t_game *game, char next_position);
+
+#endif
+
+
 void	init_assets_path(t_game *game)
 {
 	game->assets_path[WALL] = "assets/wall/wall.xpm";
@@ -38,6 +149,8 @@ void	select_image(t_game *game, char c)
 		error_exit("get_image failed.");
 }
 
+
+
 void	get_image(t_game *game)
 {
 	size_t	y;
@@ -54,8 +167,21 @@ void	get_image(t_game *game)
 			mlx_destroy_image(game->mlx, game->img.img);
 			if (game->map.map[y][x] == 'P')
 			{
+				if (game->player_on_exit)
+				{
+					select_image(game, 'E');
+					ft_put_image_to_window(game, x, y);
+					mlx_destroy_image(game->mlx, game->img.img);
+				}
+				select_image(game, 'P');
+				ft_put_image_to_window(game, x, y);
+				mlx_destroy_image(game->mlx, game->img.img);
 				game->player.x = x;
 				game->player.y = y;
+				if (game->player_on_exit)
+					game->floor_under_player = 'E';
+				else
+					game->floor_under_player = '0';
 			}
 			x++;
 		}
@@ -65,21 +191,36 @@ void	get_image(t_game *game)
 
 t_bool	can_move(t_game *game, char next_position)
 {
-	if (next_position == 'E')
-	{
-		if (game->map.num_collectible == 0)
-			mlx_loop_end(game->mlx);
-		return (FALSE);
-	}
-	if (next_position != '1')
-	{
-		game->move_count += 1;
-		ft_printf("move count-> %u\n", game->move_count);
-		return (TRUE);
-	}
-	return (FALSE);
-}
+    // デバッグメッセージを追加
+    ft_printf("can_move: next_position = %c, collectibles left = %d\n", next_position, game->map.num_collectible);
 
+    if (next_position == 'E')
+    {
+        if (game->map.num_collectible > 0)
+        {
+            game->player_on_exit = 1;
+            return (TRUE);
+        }
+        ft_printf("All collectibles gathered! Exiting...\n");
+        mlx_loop_end(game->mlx);
+        return (FALSE);
+    }
+
+    if (next_position != '1')
+    {
+        if (next_position == 'C')
+        {
+            game->map.num_collectible--;
+            ft_printf("Collectible collected! Remaining: %d\n", game->map.num_collectible);
+        }
+
+        game->move_count++;
+        ft_printf("move count-> %u\n", game->move_count);
+        return (TRUE);
+    }
+
+    return (FALSE);
+}
 
 size_t	map_row_len(const char *row)
 {
@@ -215,6 +356,7 @@ t_bool	check_exit_surrounded(char *row, char *prev_row,
 		&& row[index - 1] == '1' && row[index + 1] == '1');
 }
 
+
 static t_bool	validate_map_elements(t_game *game)
 {
 	return (game->map.num_collectible > 0 && game->map.num_exit == 1
@@ -296,37 +438,6 @@ void	get_map_data(int fd, t_game *game)
 }
 
 
-static int	ft_update(void *game_, size_t x, size_t y)
-{
-	t_game	*game;
-
-	game = (t_game *)game_;
-	if (x != game->player.x || y != game->player.y)
-		select_image(game, 'P');
-	else
-		return (0);
-	ft_put_image_to_window(game, game->player.x, game->player.y);
-	mlx_destroy_image(game->mlx, game->img.img);
-	select_image(game, '0');
-	ft_put_image_to_window(game, x, y);
-	mlx_destroy_image(game->mlx, game->img.img);
-	game->map.map[y][x] = '0';
-	x = game->player.x;
-	y = game->player.y;
-	if (game->map.map[y][x] == 'C')
-	{
-		game->map.num_collectible -= 1;
-	}
-	game->map.map[y][x] = 'P';
-	return (0);
-}
-
-static void	set_player_position(t_game *game, size_t x, size_t y)
-{
-	game->player.x = x;
-	game->player.y = y;
-}
-
 int	ft_input(int key, void *game_)
 {
 	size_t	x;
@@ -336,8 +447,11 @@ int	ft_input(int key, void *game_)
 	game = (t_game *)game_;
 	x = game->player.x;
 	y = game->player.y;
+
 	if (key == ESC)
 		mlx_loop_end(game->mlx);
+
+	// プレイヤーの移動
 	if (key == W)
 		game->player.y -= 1;
 	else if (key == S)
@@ -348,12 +462,54 @@ int	ft_input(int key, void *game_)
 		game->player.x += 1;
 	else
 		return (0);
-	if (can_move(game, game->map.map[game->player.y][game->player.x]))
-		ft_update(game, x, y);
+
+	// プレイヤーの新しい位置のタイルをチェック
+	char next_position = game->map.map[game->player.y][game->player.x];
+
+	// プレイヤーが出口に到達した際のチェック
+	if (next_position == 'E' && game->map.num_collectible == 0)
+	{
+		mlx_loop_end(game->mlx); // 全てのアイテムを集めたのでゲーム終了
+		return (0);
+	}
+
+	// 通常の移動処理
+	if (can_move(game, next_position))
+	{
+		// 移動前のタイルを復元
+		if (game->floor_under_player == 'E')
+		{
+			select_image(game, 'E');
+			ft_put_image_to_window(game, x, y);
+			mlx_destroy_image(game->mlx, game->img.img);
+		}
+		else
+		{
+			select_image(game, '0');
+			ft_put_image_to_window(game, x, y);
+			mlx_destroy_image(game->mlx, game->img.img);
+		}
+
+		// プレイヤーの新しい位置を描画
+		game->floor_under_player = next_position;
+		select_image(game, 'P');
+		ft_put_image_to_window(game, game->player.x, game->player.y);
+		mlx_destroy_image(game->mlx, game->img.img);
+	}
 	else
-		set_player_position(game, x, y);
+	{
+		// 移動できない場合は元の位置に戻す
+		game->player.x = x;
+		game->player.y = y;
+	}
+
 	return (0);
 }
+
+
+
+
+
 
 int	close_window(t_game *game)
 {
@@ -436,6 +592,8 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	get_map_data(fd, &game);
 	close(fd);
+	game.player_on_exit = 0;
+	game.floor_under_player = 0;
 	initialize_game(&game, argv[0]);
 	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);
 	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);

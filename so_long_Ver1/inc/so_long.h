@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/08 12:55:15 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:50:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct  s_game
 	t_player		player;
 	unsigned int	move_count;
 	const char		*assets_path[5];
+	int				player_on_exit;
+	char			floor_under_player;
 } t_game;
 
 int		open_if_file_is_valid(char *argv1);
