@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/09 14:02:57 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:09:13 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,35 +92,29 @@ void	get_image(t_game *game)
 
 t_bool	can_move(t_game *game, char next_position)
 {
-    // デバッグメッセージを追加
-    ft_printf("can_move: next_position = %c, collectibles left = %d\n", next_position, game->map.num_collectible);
+	// 1. 次の位置が 'E'（出口）の場合
+	if (next_position == 'E')
+	{
+		// 2. まだコレクタブルが残っている場合、通り抜けられない
+		if (game->map.num_collectible > 0)
+			return (FALSE);
 
-    if (next_position == 'E')
-    {
-        if (game->map.num_collectible > 0)
-        {
-            game->player_on_exit = 1;
-            return (TRUE);
-        }
-        ft_printf("All collectibles gathered! Exiting...\n");
-        mlx_loop_end(game->mlx);
-        return (FALSE);
-    }
+		// 3. コレクタブルを全て集めていればゲームクリア
+		ft_printf("Congratulations! You've cleared the game!\n");
+		mlx_loop_end(game->mlx); // ゲームを終了
+		return (TRUE);
+	}
 
-    if (next_position != '1')
-    {
-        if (next_position == 'C')
-        {
-            game->map.num_collectible--;
-            ft_printf("Collectible collected! Remaining: %d\n", game->map.num_collectible);
-        }
+	// 4. 次の位置が壁 ('1') 以外なら移動を許可
+	if (next_position != '1')
+	{
+		game->move_count += 1;
+		ft_printf("move count -> %u\n", game->move_count);
+		return (TRUE);
+	}
 
-        game->move_count++;
-        ft_printf("move count-> %u\n", game->move_count);
-        return (TRUE);
-    }
-
-    return (FALSE);
+	// 5. その他の場合は移動できない
+	return (FALSE);
 }
 
 
