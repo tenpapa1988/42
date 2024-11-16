@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/10 14:09:13 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/16 09:24:11 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,44 +50,24 @@ void	select_image(t_game *game, char c)
 		error_exit("get_image failed.");
 }
 
-
-
-void	get_image(t_game *game)
+void get_image(t_game *game)
 {
-	size_t	y;
-	size_t	x;
+    size_t y;
+    size_t x;
 
-	y = 0;
-	while (y < game->map.height)
-	{
-		x = 0;
-		while (x < game->map.width)
-		{
-			select_image(game, game->map.map[y][x]);
-			ft_put_image_to_window(game, x, y);
-			mlx_destroy_image(game->mlx, game->img.img);
-			if (game->map.map[y][x] == 'P')
-			{
-				if (game->player_on_exit)
-				{
-					select_image(game, 'E');
-					ft_put_image_to_window(game, x, y);
-					mlx_destroy_image(game->mlx, game->img.img);
-				}
-				select_image(game, 'P');
-				ft_put_image_to_window(game, x, y);
-				mlx_destroy_image(game->mlx, game->img.img);
-				game->player.x = x;
-				game->player.y = y;
-				if (game->player_on_exit)
-					game->floor_under_player = 'E';
-				else
-					game->floor_under_player = '0';
-			}
-			x++;
-		}
-		y++;
-	}
+    y = 0;
+    while (y < game->map.height)
+    {
+        x = 0;
+        while (x < game->map.width)
+        {
+            select_image(game, game->map.map[y][x]);
+            ft_put_image_to_window(game, x, y);
+            mlx_destroy_image(game->mlx, game->img.img);
+            x++;
+        }
+        y++;
+    }
 }
 
 t_bool	can_move(t_game *game, char next_position)
@@ -121,7 +101,7 @@ t_bool	can_move(t_game *game, char next_position)
 // void	get_image(t_game *game)
 // {
 // 	size_t	y;
-// 	size_t	x;
+//	size_t	x;
 
 // 	y = 0;
 // 	while (y < game->map.height)

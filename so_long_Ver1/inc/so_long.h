@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/09 11:50:10 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:36:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void	free_all(t_game *game, char **map, size_t i);
 void	error_exit(char *message);
 
 void	get_map_data(int fd, t_game *game);
+t_bool	is_map_valid(t_game *game);
+void	dfs(t_game *game, char **map, int x, int y, t_bool **visited);
+void	free_visited(t_bool **visited, size_t height);
+void	free_and_exit(char *message, t_game *game, char **map_copy, size_t height);
 
 size_t	map_row_len(const char *row);
 t_bool	check_initial_row(t_list *map, t_game *game);
