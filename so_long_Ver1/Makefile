@@ -6,7 +6,7 @@
 #    By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 12:26:28 by yussaito          #+#    #+#              #
-#    Updated: 2024/11/08 10:34:25 by yussaito         ###   ########.fr        #
+#    Updated: 2024/11/17 13:16:46 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ FRAMEWORK			= -L ./minilibx-linux -lmlx -lXext -lX11 -lm
 # Object File and Source File
 SRCS				= $(SRC_DIR)main.c \
 					  $(SRC_DIR)get_map.c \
+					  $(SRC_DIR)get_map2.c \
+					  $(SRC_DIR)get_map3.c \
+					  $(SRC_DIR)get_map4.c \
 					  $(SRC_DIR)get_map_utils.c \
 					  $(SRC_DIR)get_map_utils2.c \
 					  $(SRC_DIR)get_image_utils.c \

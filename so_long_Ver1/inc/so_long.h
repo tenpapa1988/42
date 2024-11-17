@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/16 14:36:47 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/17 14:49:43 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,26 @@ typedef struct  s_game
 	t_player		player;
 	unsigned int	move_count;
 	const char		*assets_path[5];
-	int				player_on_exit;
-	char			floor_under_player;
 } t_game;
 
 int		open_if_file_is_valid(char *argv1);
 void	free_all(t_game *game, char **map, size_t i);
 void	error_exit(char *message);
 
-void	get_map_data(int fd, t_game *game);
+t_bool	get_map_info(t_list *map, t_game *game);
 t_bool	is_map_valid(t_game *game);
-void	dfs(t_game *game, char **map, int x, int y, t_bool **visited);
 void	free_visited(t_bool **visited, size_t height);
+
+t_bool	check_path_validity(t_game *game, char **map_copy);
+char	**copy_map(t_game *game);
+
+void	get_map_data(int fd, t_game *game);
+t_bool	**allocate_visited(t_game *game);
+void	dfs(t_game *game, int x, int y, t_bool **visited);
+
 void	free_and_exit(char *message, t_game *game, char **map_copy, size_t height);
+void	error_exit_with_lstclear(t_list *map, char *message);
+void	move_list_to_double_pointer(t_game *game, t_list *map);
 
 size_t	map_row_len(const char *row);
 t_bool	check_initial_row(t_list *map, t_game *game);
