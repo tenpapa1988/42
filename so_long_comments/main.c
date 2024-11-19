@@ -5,28 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/14 14:16:16 by tshigena          #+#    #+#             */
-/*   Updated: 2024/11/19 12:02:10 by yussaito         ###   ########.fr       */
+/*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
+/*   Updated: 2024/11/19 15:33:12 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../inc/so_long.h"
 
-void	free_all(t_game game, char **map, size_t i)
+void	free_all(t_game *game, char **map, size_t i)
 {
-	while (i > 0 )
+	while (i > 0)
 		free(map[--i]);
 	free(map);
-	mlx_clear_window(game.mlx, game.mlx_win);
-	mlx_destroy_window(game.mlx, game.mlx_win);
-	mlx_destroy_display(game.mlx);
-	free(game.mlx);
+	mlx_clear_window(game->mlx, game->mlx_win);
+	mlx_destroy_window(game->mlx, game->mlx_win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
 }
 
 void	error_exit(char *message)
 {
-	printf("Error\n");
-	printf("%s\n", message);
+	ft_printf("Error\n");
+	ft_printf("%s\n", message);
 	exit (1);
 }
 
@@ -44,6 +44,19 @@ int	open_if_file_is_valid(char *argv1)
 	return (fd);
 }
 
+static void	initialize_game(t_game *game, char *program_name)
+{
+	game->mlx = mlx_init();//MLXの初期化
+	if (game->mlx == NULL)
+		error_exit("X Server Failed");
+	game->mlx_win = mlx_new_window(game->mlx, game->map.width * IMAGE_SIZE,
+			game->map.height * IMAGE_SIZE, program_name);//ウインドウの生成
+	if (game->mlx_win == NULL)
+		error_exit("Failed to create window");
+	init_assets_path(game);//画像へのパスを追加
+	get_image(game);//アセットパスに基づいて画像のロードを行う
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -55,19 +68,14 @@ int	main(int argc, char **argv)
 	game = (t_game){0};//t_gameという構造体のすべてのメンバの値を初期化（0またはNULL）にしている
 	get_map_data(fd, &game);
 	close(fd);
-	game.mlx = mlx_init();
-	if (game.mlx == NULL)
-		error_exit(strerror(errno));
-	game.mlx_win = mlx_new_window(game.mlx, game.map.width * IMAGE_SIZE, \
-		game.map.height * IMAGE_SIZE, argv[0]);
-	if (game.mlx_win == NULL)
-		error_exit(strerror(errno));
-	get_image(&game);
+	initialize_game(&game, argv[0]);
+	if (!is_map_valid(&game))//mapがゲームできるのか？壁で囲われているなどをチェックする
+		free_and_exit("No valid path from P to all C and E", &game, NULL, 0);
 	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);//プレーヤーが動くOR ESCで閉じる
 	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);//Winddowを閉じる
 	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);//WindowをMinimizeする
-	mlx_loop(game.mlx);//プログラミングが終了するまで継続的に存在し続ける関数
-	free_all(game, game.map.map, game.map.height);//freeする
-	exit (0);
+	mlx_loop(game.mlx);/プログラミングが終了するまで継続的に存在し続ける関数
+	free_all(&game, game.map.map, game.map.height);//freeする
+	exit(0);
 }
 //mlx_hook関数では、第1引数にはイベントを設定する対象のウィンドウ。第2引数は発生したときに反応するイベントの種類。第3引数はイベントマスク。第4引数は指定したイベントが発生したときに実行する関数。第5引数は第4引数の関数に引き継ぐパラメータ。

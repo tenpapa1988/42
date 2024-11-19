@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/17 14:54:39 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:15:55 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	free_and_exit(char *message, t_game *game,
 	exit(1);
 }
 
-static char	**allocate_map_memory(size_t height, t_list *map)
+//マップを格納するための 二次元配列（char **）用のメモリを確保。
+static char	**allocate_map_memory(size_t height, t_list *map)//height+1なのはNULL終端の確保のため
 {
 	char	**map_array;
 
@@ -51,6 +52,7 @@ static char	**allocate_map_memory(size_t height, t_list *map)
 	return (map_array);
 }
 
+//リストに格納されたマップデータを二次元配列（char **）にコピー
 static void	copy_list_to_map(char **map_array, t_list *map, size_t height)
 {
 	size_t	i;
@@ -65,7 +67,7 @@ static void	copy_list_to_map(char **map_array, t_list *map, size_t height)
 		{
 			while (i > 0)
 			{
-				free(map_array[--i]);
+				free(map_array[--i]);//i = 2で失敗した場合にはメモリを確保していた1から開放していく必要があるので--iになってる
 				map_array[i] = NULL;
 			}
 			free(map_array);
