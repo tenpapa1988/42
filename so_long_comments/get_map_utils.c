@@ -6,12 +6,13 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:44:16 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 13:46:32 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:14:09 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+//マップの行の長さを計測する関数
 size_t	map_row_len(const char *row)
 {
 	size_t	i;
@@ -27,7 +28,7 @@ size_t	map_row_len(const char *row)
 	}
 	return (i);
 }
-
+//一番はじめの行のチェックをする関数
 t_bool	check_initial_row(t_list *map, t_game *game)
 {
 	if (!map || !map->content)

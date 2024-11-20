@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:16:16 by tshigena          #+#    #+#             */
-/*   Updated: 2024/11/19 12:02:10 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:07:46 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	free_all(t_game game, char **map, size_t i)
 	mlx_destroy_display(game.mlx);
 	free(game.mlx);
 }
-
 void	error_exit(char *message)
 {
 	printf("Error\n");

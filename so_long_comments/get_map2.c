@@ -6,12 +6,13 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/17 14:43:48 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:14:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+//Cに到達可能か？をチェックする
 t_bool	check_reachable(t_game *game, t_bool **visited, char target)
 {
 	size_t	x;
@@ -26,7 +27,7 @@ t_bool	check_reachable(t_game *game, t_bool **visited, char target)
 		while (x < game->map.width)
 		{
 			if (game->map.map[y][x] == target && !visited[y][x])
-				reachable = FALSE;
+				reachable = FALSE;//マップの各マスがC＆visitedがFALSEだったら、即座にリーチできないと処理する
 			x++;
 		}
 		y++;
@@ -34,6 +35,7 @@ t_bool	check_reachable(t_game *game, t_bool **visited, char target)
 	return (reachable);
 }
 
+//マップをコピする関数
 char	**copy_map(t_game *game)
 {
 	char	**map_copy;
@@ -64,16 +66,18 @@ static t_bool	check_collectibles_reachable(t_game *game, char **map_copy)
 	t_bool	**visited;
 	t_bool	reachable;
 
-	visited = allocate_visited(game);
+	visited = allocate_visited(game);//訪問済みか？をチェックするための
 	if (!visited)
 		free_and_exit("Failed to allocate memory for collectibles check",
 			game, map_copy, game->map.height);
-	dfs(game, game->player.x, game->player.y, visited);
-	reachable = check_reachable(game, visited, 'C');
-	free_visited(visited, game->map.height);
+	dfs(game, game->player.x, game->player.y, visited);//Pを起点として探索
+	reachable = check_reachable(game, visited, 'C');//Cが訪問可能か？をチェック
+	free_visited(visited, game->map.height);//visitedをfreeする
 	return (reachable);
 }
-
+//Eに辿り着くのか？を検証する関数。visitedはオリジナルマップを利用
+//check_collectibles_reachable関数と同じでもよかったはずなんですが、一度freeしてるにも関わらず、なぜかうまく機能しなかったので、こうした
+//機能しないとは、上書きが発生してしまって、正確なマップが取得できなかったという意味
 static t_bool	check_exit_reachable(t_game *game)
 {
 	t_bool	**visited;
@@ -88,7 +92,7 @@ static t_bool	check_exit_reachable(t_game *game)
 	free_visited(visited, game->map.height);
 	return (reachable);
 }
-
+//まずEを1に置き換えてしまって、Eに塞がれていないか？をチェック
 t_bool	check_path_validity(t_game *game, char **map_copy)
 {
 	size_t	y;

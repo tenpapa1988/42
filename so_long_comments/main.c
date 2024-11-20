@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:16:08 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 15:33:12 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:52:20 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	main(int argc, char **argv)
 	game = (t_game){0};//t_gameという構造体のすべてのメンバの値を初期化（0またはNULL）にしている
 	get_map_data(fd, &game);
 	close(fd);
-	initialize_game(&game, argv[0]);
+	initialize_game(&game, argv[0]);//initialize_game関数を発動しているので、画面が一瞬立ち上がってしまう
 	if (!is_map_valid(&game))//mapがゲームできるのか？壁で囲われているなどをチェックする
 		free_and_exit("No valid path from P to all C and E", &game, NULL, 0);
 	mlx_hook(game.mlx_win, E_KEY_PRESS, M_KEY_PRESS, ft_input, &game);//プレーヤーが動くOR ESCで閉じる
 	mlx_hook(game.mlx_win, E_WIN_CLOSE, M_WIN_RESIZE, close_window, &game);//Winddowを閉じる
-	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);//WindowをMinimizeする
+	mlx_hook(game.mlx_win, E_WIN_RESIZE, M_WIN_CLOSE, minimize_window, &game);//WindowをMinimizeする。E_WIN_RESIZEでウインドウフォーカス。Structure NotifyMaskで最小化の動作。minimize_windowで最小化しても画像を表示させておく
 	mlx_loop(game.mlx);/プログラミングが終了するまで継続的に存在し続ける関数
 	free_all(&game, game.map.map, game.map.height);//freeする
 	exit(0);

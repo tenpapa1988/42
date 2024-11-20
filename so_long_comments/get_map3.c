@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 15:22:21 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 09:14:00 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	get_map_data(int fd, t_game *game)
 	initialize_game_map(game, map_list);
 }
 
+//各マスを訪問済か？を記録するための二次元配列
 t_bool	**allocate_visited(t_game *game)
 {
 	t_bool	**visited;
@@ -82,12 +83,12 @@ t_bool	**allocate_visited(t_game *game)
 	size_t	j;
 
 	i = 0;
-	visited = (t_bool **)ft_calloc(game->map.height, sizeof(t_bool *));
+	visited = (t_bool **)ft_calloc(game->map.height, sizeof(t_bool *));//高さに基づいて動的に確保
 	if (!visited)
 		error_exit("Memory allocation failed for visited array");
 	while (i < game->map.height)
 	{
-		visited[i] = (t_bool *)ft_calloc(game->map.width, sizeof(t_bool));
+		visited[i] = (t_bool *)ft_calloc(game->map.width, sizeof(t_bool));//width側に対して動的に確保
 		if (!visited[i])
 			error_exit("Memory allocation failed for visited row");
 		j = 0;
@@ -102,14 +103,15 @@ t_bool	**allocate_visited(t_game *game)
 	return (visited);
 }
 
+//深さ優先探索でPの位置からvistedをTRUEにしてく
 void	dfs(t_game *game, int x, int y, t_bool **visited)
 {
 	if (x < 0 || y < 0 || x >= (int)game->map.width
 		|| y >= (int)game->map.height
 		|| game->map.map[y][x] == '1' || visited[y][x])
-		return ;
+		return ;//探索範囲がマップの外や1にぶつかったとき、すでに訪問済みの場合には終了する
 	visited[y][x] = TRUE;
-	dfs(game, x + 1, y, visited);
+	dfs(game, x + 1, y, visited);//再起なので、returnで抜けるまではここを行う
 	dfs(game, x - 1, y, visited);
 	dfs(game, x, y + 1, visited);
 	dfs(game, x, y - 1, visited);

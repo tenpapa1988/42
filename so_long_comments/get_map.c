@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 13:57:03 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 08:59:00 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_bool	get_map_info(t_list *map, t_game *game)
 	return (TRUE);
 }
 
+//mapをコピーしてそれをチェックする。チェックし終わったらすべてをfreeする
 t_bool	is_map_valid(t_game *game)
 {
 	char	**map_copy;

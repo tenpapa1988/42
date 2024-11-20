@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:51:54 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 15:50:22 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/20 10:18:53 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	get_image(t_game *game)
 		y++;
 	}
 }
-
+//Eか1で条件ついてる。EはCが残っていたら移動を拒否。全て集めていればゴール
+//1の場合にはmove_countを1追加＆出力
 t_bool	can_move(t_game *game, char next_position)
 {
 	if (next_position == 'E')
