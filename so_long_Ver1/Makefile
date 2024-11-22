@@ -6,7 +6,7 @@
 #    By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 12:26:28 by yussaito          #+#    #+#              #
-#    Updated: 2024/11/17 13:16:46 by yussaito         ###   ########.fr        #
+#    Updated: 2024/11/22 11:03:47 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS				= $(SRC_DIR)main.c \
 					  $(SRC_DIR)get_map2.c \
 					  $(SRC_DIR)get_map3.c \
 					  $(SRC_DIR)get_map4.c \
+					  $(SRC_DIR)get_map5.c \
 					  $(SRC_DIR)get_map_utils.c \
 					  $(SRC_DIR)get_map_utils2.c \
 					  $(SRC_DIR)get_image_utils.c \

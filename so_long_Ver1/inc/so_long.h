@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/21 12:43:54 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:02:46 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	**copy_map(t_game *game);
 
 void	get_map_data(int fd, t_game *game);
 t_bool	**allocate_visited(t_game *game);
+
+void	dfs_map_copy(t_game *game, int x, int y, t_bool **visited);
 void	dfs(t_game *game, int x, int y, t_bool **visited);
 
 void	free_and_exit(char *message, t_game *game,

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/21 12:39:04 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:06:15 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_bool	check_collectibles_reachable(t_game *game, char **map_copy)
 		free_and_exit("Failed to allocate memory for collectibles check",
 			game, map_copy, game->map.height);
 	game->map_copy = map_copy;
-	dfs(game, game->player.x, game->player.y, visited);
+	dfs_map_copy(game, game->player.x, game->player.y, visited);
 	reachable = check_reachable(game, visited, 'C');
 	free_visited(visited, game->map.height);
 	return (reachable);
