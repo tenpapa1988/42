@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+         #
+#    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/27 12:26:28 by yussaito          #+#    #+#              #
-#    Updated: 2024/11/17 13:16:46 by yussaito         ###   ########.fr        #
+#    Updated: 2024/11/26 13:20:16 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,9 @@ OBJS 				= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 					@mkdir -p $(@D)
 					$(CC) $(CFLAGS) -c $< -o $@
+#ターゲット（%.o）のディレクトリ部分を抽出します。
+#例えば、ターゲットが obj/main.o であれば、$(@D) は obj になります。
+#-p オプションにより、途中のディレクトリも自動で作成されます。指定したディレクトリが存在しない場合に作成します。
 
 # Build
 all:				$(NAME)

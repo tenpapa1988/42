@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:19:34 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 12:09:01 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:32:30 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define A 97
 # define D 100
 # define ESC 65307
+//ASCIIコードの数字。ESCはX11のキーコード（色々と試してこれがESCだった）
 
 typedef enum e_bool
 {

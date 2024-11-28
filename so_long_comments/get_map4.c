@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/19 15:15:55 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:30:50 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	copy_list_to_map(char **map_array, t_list *map, size_t height)
 	ft_lstclear(&map, free);
 }
 
+//リンクリストを2次元配列に変換する関数
 void	move_list_to_double_pointer(t_game *game, t_list *map)
 {
 	game->map.map = allocate_map_memory(game->map.height, map);

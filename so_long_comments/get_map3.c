@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 08:44:01 by yussaito          #+#    #+#             */
-/*   Updated: 2024/11/20 09:14:00 by yussaito         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:50:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_bool	**allocate_visited(t_game *game)
 	return (visited);
 }
 
-//深さ優先探索でPの位置からvistedをTRUEにしてく
+//深さ優先探索でPの位置からvistedをTRUEにしてく（提出したコードでは、dfsを分けているので、そこは注意！）
 void	dfs(t_game *game, int x, int y, t_bool **visited)
 {
 	if (x < 0 || y < 0 || x >= (int)game->map.width
