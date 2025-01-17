@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:57:17 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/14 14:54:04 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:40:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	dead_loop(t_philo *philo)
 	pthread_mutex_lock(philo->dead_lock);
 	if (*philo->dead == 1)
 		return (pthread_mutex_unlock(philo->dead_lock), 1);
-	pthread_mutex_unlock(phlilo->dead_lock);
+	pthread_mutex_unlock(philo->dead_lock);
 	return (0);
 }
 
@@ -33,7 +33,7 @@ void	*philo_routine(void *pointer)
 	while (!dead_loop(philo))
 	{
 		eat(philo);
-		sleep(philo);
+		dream(philo);
 		think(philo);
 	}
 	return (pointer);
@@ -50,8 +50,9 @@ int	thread_create(t_program *program, pthread_mutex_t *forks)
 	i = 0;
 	while (i < program->philos[0].num_of_philos)
 	{
-		if (pthread_create(&program->philos[i].thread, NULL, &philo_routine, &program->philos[i] != 0))
-			destroy_all("Creating Threads Error", program, forks);
+		if (pthread_create(&program->philos[i].thread, NULL, &philo_routine,
+				&program->philos[i]) != 0)
+			destroy_all("Thread creation error", program, forks);
 		i++;
 	}
 	i = 0;

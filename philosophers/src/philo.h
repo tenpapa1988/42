@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/13 09:16:12 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:36:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,40 @@ typedef struct s_program
 	t_philo			*philos;
 }					t_program;
 
+// Main functions
+int					check_arg_content(char *arg);
+int					check_val_args(char **argv);
+void				destroy_all(char *str, t_program *program,
+						pthread_mutex_t *forks);
 
+// Initialization
+void				init_program(t_program *program, t_philo *philos);
+void				init_forks(pthread_mutex_t *forks, int philo_num);
+void				init_philos(t_philo *philos, t_program *program,
+						pthread_mutex_t *forks, char **argv);
+void				init_input(t_philo *philo, char **argv);
+
+// Threads
+int					thread_create(t_program *program, pthread_mutex_t *forks);
+void				*monitor(void *pointer);
+void				*philo_routine(void *pointer);
+
+// Actions
+void				eat(t_philo *philo);
+void				dream(t_philo *philo);
+void				think(t_philo *philo);
+
+// Monitor utils
+int					dead_loop(t_philo *philo);
+int					check_if_all_ate(t_philo *philos);
+int					check_if_dead(t_philo *philos);
+int					philosopher_dead(t_philo *philo, size_t time_to_die);
+
+// Utils
+int					ft_atoi(char *str);
+int					ft_usleep(size_t microseconds);
+int					ft_strlen(char *str);
+void				message_print(char *str, t_philo *philo, int id);
+size_t				get_current_time(void);
 
 #endif

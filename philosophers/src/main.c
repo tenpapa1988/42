@@ -6,33 +6,12 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:05 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/14 08:58:16 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:42:24 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(char *str)
-{
-	int	i;
-	int	sign;
-	int	result;
-
-	i = 0;
-	sign = 1;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	result = 0;
-	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
 
 //Check if the argv is only number
 int	check_arg_content(char *str)
@@ -52,20 +31,16 @@ int	check_arg_content(char *str)
 //Check if the args are valid
 int	check_val_args(char **argv)
 {
-	if (ft_atoi(argv[1] > PHILO_MAX) || ft_atoi(argv[1] <= 0
-		|| check_arg_content(argv[1]) == 1))
+	if (ft_atoi(argv[1]) > PHILO_MAX || ft_atoi(argv[1]) <= 0
+		|| check_arg_content(argv[1]) == 1)
 		return (write(2, "Invalid philosophers number\n", 29), 1);
-	if (ft_atoi(argv[2] <= 0
-		|| check_arg_content(argv[2]) == 1))
+	if (ft_atoi(argv[2]) <= 0 || check_arg_content(argv[2]) == 1)
 		return (write(2, "Invalid time to die\n", 21), 1);
-	if (ft_atoi(argv[3] <= 0
-		|| check_arg_content(argv[3]) == 1))
+	if (ft_atoi(argv[3]) <= 0 || check_arg_content(argv[3]) == 1)
 		return (write(2, "Invalid time to eat\n", 21), 1);
-	if (ft_atoi(argv[4] <= 0
-		|| check_arg_content(argv[4]) == 1))
+	if (ft_atoi(argv[4]) <= 0 || check_arg_content(argv[4]) == 1)
 		return (write(2, "Invalid time to sleep\n", 23), 1);
-	if (argv[5] && (ft_atoi(argv[5]) < 0
-		|| check_arg_content(argv[5]) == 1))
+	if (argv[5] && (ft_atoi(argv[5]) < 0 || check_arg_content(argv[5]) == 1))
 		return (write(2, "Invalid number of times each philosopher must eat\n",
 				51), 1);
 	return (0);

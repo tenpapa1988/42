@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/14 15:27:16 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:51:59 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,24 @@ int	check_if_all_ate(t_philo *philos)
 
 	i = 0;
 	finished_eating = 0;
+	if (philos[0].num_times_to_eat == -1)
+		return (0);
+	while (i < philos[0].num_of_philos)
+	{
+		pthread_mutex_lock(philos[i].meal_lock);
+		if (philos[i].meals_eaten >= philos[i].num_times_to_eat)
+			finished_eating++;
+		pthread_mutex_unlock(philos[i].meal_lock);
+		i++;
+	}
+	if (finished_eating == philos[0].num_of_philos)
+	{
+		pthread_mutex_lock(philos[0].dead_lock);
+		*philos->dead = 1;
+		pthread_mutex_unlock(philos[0].dead_lock);
+		return (1);
+	}
+	return (0);
 }
 
 //Monitor thread routine
@@ -71,7 +89,9 @@ void	*monitor(void *pointer)
 
 	philos = (t_philo *)pointer;
 	while (1)
+	{
 		if (check_if_dead(philos) == 1 || check_if_all_ate(philos) == 1)
 			break;
-		return (pointer);
+	}
+	return (pointer);
 }

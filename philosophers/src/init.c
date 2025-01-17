@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/13 09:22:30 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:52:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	init_input(t_philo *philo, char **argv)
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
+	philo->num_of_philos = ft_atoi(argv[1]);
 	if (argv[5])
 		philo->num_times_to_eat = ft_atoi(argv[5]);
 	else
-		philo->num_times_to_eat = -1; //Why -1???
+		philo->num_times_to_eat = -1;
 }
 
 //Initialize the philosophers
