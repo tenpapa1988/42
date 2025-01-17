@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 15:52:47 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:04:18 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 	i = 0;
 	while (i < philo_num)
 	{
-		pthread_mutex_init(&forks[i], NULL);
+		pthread_mutex_init(&forks[i], NULL);//mutexを使用する場合には必ず初期化！
 		i++;
 	}
 }
@@ -70,7 +70,7 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 void	init_program(t_program *program, t_philo *philos)
 {
 	program->dead_flag = 0;
-	program->philos = philos;
+	program->philos = philos;//ポインタを渡しているだけ
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);
