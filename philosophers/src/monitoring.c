@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 15:51:59 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:04:40 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_if_dead(t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (i < philos[0].num_of_philos)
+	while (i < philos[0].num_of_philos)//num_of_philosは哲学者全員に共通するデータなので、philo[0]でもphilo[1]でも良いのだけど、共通データの場合には[0]にアクセスするのが通例らしい
 	{
 		if (philosopher_dead(&philos[i], philos[i].time_to_die))
 		{
@@ -87,7 +87,7 @@ void	*monitor(void *pointer)
 {
 	t_philo	*philos;
 
-	philos = (t_philo *)pointer;
+	philos = (t_philo *)pointer;//void型で渡ってくるので扱いたい型にキャストする
 	while (1)
 	{
 		if (check_if_dead(philos) == 1 || check_if_all_ate(philos) == 1)
@@ -95,3 +95,4 @@ void	*monitor(void *pointer)
 	}
 	return (pointer);
 }
+

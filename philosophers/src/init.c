@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 20:04:18 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:00:08 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_input(t_philo *philo, char **argv)
 	if (argv[5])
 		philo->num_times_to_eat = ft_atoi(argv[5]);
 	else
-		philo->num_times_to_eat = -1;
+		philo->num_times_to_eat = -1;//回数制限がない場合には、-1で特別な値を入れている
 }
 
 //Initialize the philosophers
@@ -45,10 +45,10 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].dead = &program->dead_flag;
 		philos[i].l_fork = &forks[i];
-		if (i == 0)
+		if (i == 0)//最初の哲学者は右フォークは哲学者の人数-1のフォークだから
 			philos[i].r_fork = &forks[philos[i].num_of_philos - 1];
 		else
-			philos[i].r_fork = &forks[i - 1];
+			philos[i].r_fork = &forks[i - 1];//2人目以降は自分の右は自分-1のフォークになる
 		i++;
 	}
 }

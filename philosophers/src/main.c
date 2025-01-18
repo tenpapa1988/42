@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:05 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 20:03:01 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:03:11 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init_program(&program, philos);//programは構造体なので&が必須。philosは配列なので&不要。＆無くても先頭のアドレスを渡せる
 	init_forks(forks, ft_atoi(argv[1]));//フォークの数はphiloの数と同値
-	init_philos(philos, &program, forks, argv);
+	init_philos(philos, &program, forks, argv);//それぞれの哲学者を初期化する
 	thread_create(&program, forks);
 	destroy_all(NULL,&program, forks);
 	return (0);
