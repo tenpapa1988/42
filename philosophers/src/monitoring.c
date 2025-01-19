@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/18 13:51:12 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:19:20 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	*monitor(void *pointer)
 	{
 		if (check_if_dead(philos) == 1 || check_if_all_ate(philos) == 1)
 			break;
+		usleep(500);
 	}
 	return (pointer);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/17 15:22:48 by yussaito          #+#    #+#              #
-#    Updated: 2025/01/17 15:23:44 by yussaito         ###   ########.fr        #
+#    Updated: 2025/01/19 13:20:13 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = main.c utils.c init.c threads.c monitoring.c routine.c
 
 MANPATH = $(addprefix ./src/, $(SRC))
 
-FLAGS = -Wall -Wextra -Werror -O3 -pthread
+FLAGS = -Wall -Wextra -Werror -O3 -pthread -g
 
 HEADER = ./src/philo.h
 
