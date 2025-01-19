@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:57:17 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/18 10:15:03 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 09:11:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	dead_loop(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
 	if (*philo->dead == 1)
-		return (pthread_mutex_unlock(philo->dead_lock), 1);
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(philo->dead_lock);
 	return (0);
 }
@@ -28,9 +31,9 @@ void	*philo_routine(void *pointer)
 	t_philo *philo;
 
 	philo = (t_philo *)pointer;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0)//偶数の哲学者がフォークを取るタイミングを微妙に遅らせることでデッドロックを避ける
 		ft_usleep(1);
-	while (!dead_loop(philo))
+	while (!dead_loop(philo))//課題の中で出力の例がeat, sleep, thinkなので、これに合わせている
 	{
 		eat(philo);
 		dream(philo);
@@ -48,7 +51,7 @@ int	thread_create(t_program *program, pthread_mutex_t *forks)
 	if (pthread_create(&observer, NULL, &monitor, program->philos) != 0)//哲学者の脂肪や終了条件を監視するobserverスレッドを作成し、monitor関数をその中で実行
 		destroy_all("Creating Threads Error", program, forks);//pthread_createがエラーだと0以外が返る
 	i = 0;
-	while (i < program->philos[0].num_of_philos)
+	while (i < program->philos[0].num_of_philos)//哲学者の数まで回していく
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, &philo_routine,
 				&program->philos[i]) != 0)//哲学者ごとのスレッドを作成＆philo_routine関数の実行

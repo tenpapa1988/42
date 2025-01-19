@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:26:15 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 15:38:45 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 09:21:34 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	eat(t_philo *philo)
 	message_print("has taken a fork", philo, philo->id);
 	if (philo->num_of_philos == 1)
 	{
-		ft_usleep(philo->time_to_die);
+		ft_usleep(philo->time_to_die);//哲学者が一人の場合にはフォークがないので死ぬしか無い→死ぬ時間までusleepするようにしている
 		pthread_mutex_unlock(philo->r_fork);
 		return ;
 	}
@@ -46,3 +46,4 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
+

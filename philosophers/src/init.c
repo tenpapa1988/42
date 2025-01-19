@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/18 09:00:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 09:19:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 	i = 0;
 	while (i < ft_atoi(argv[1]))
 	{
-		philos[i].id = i + 1;
+		philos[i].id = i + 1;//philoのIDは1からスタート（配列的には0からだけど、IDは1から）
 		philos[i].eating = 0;
 		philos[i].meals_eaten = 0;
 		init_input(&philos[i], argv);
