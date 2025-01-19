@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:00:55 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/18 08:38:26 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:54:07 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_atoi(char *str)
 
 }
 
+//ヘッダーファイルにてpthread_mutex_tで指定した変数をすべて解放する必要がある
+//write_lock, dead_lock, meal_lockについてはt_program側で管理しているので、こちらを解放すればOK。l_forkとr_forkはt_philo側で管理しているので、これは別途解放する必要がある
 void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {
 	int	i;
@@ -68,6 +70,7 @@ void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 	}
 }
 
+//usleepをそのまま使うと誤差が生じるので、正しい時間で処理できるように変換している
 int	ft_usleep(size_t millisecond)
 {
 	size_t	start;

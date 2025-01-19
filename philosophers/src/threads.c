@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:57:17 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/19 11:09:31 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:21:05 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	thread_create(t_program *program, pthread_mutex_t *forks)
 		i++;
 	}
 	i = 0;
-	if (pthread_join(observer, NULL) != 0)//obseverスレッドが終わるまで待つ。monitor関数が終了するまでメインスレッドがブロックされる
-		destroy_all("Joining Thread Error", program, forks);
+	if (pthread_join(observer, NULL) != 0)//obseverスレッドが終わるまで待つ。monitor関数が終了するまでメインスレッドがブロックされる（待つというのは本当にここから先には進まない！という意味）
+		destroy_all("Joining Thread Error", program, forks);//mallocのときのエラー処理のように、ここでもエラーが発生した際にはすべてを開放するようにしている
 	while (i < program->philos[0].num_of_philos)//各哲学者スレッドの終了を待機。スレッド終了までメインスレッドがブロック
 	{
 		if (pthread_join(program->philos[i].thread, NULL) != 0)
