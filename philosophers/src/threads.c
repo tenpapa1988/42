@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:57:17 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/19 09:11:31 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:09:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*philo_routine(void *pointer)
 }
 
 //Create threads
+//obseverスレッドを立ち上げて、次にそれぞれの哲学者のスレッドを作る。終えるときにはobseverスレッド（死ぬか必要回数以上食べたとき）が終了！と合図を鳴らしてから各哲学者のスレッドを閉じる必要がある
 int	thread_create(t_program *program, pthread_mutex_t *forks)
 {
 	pthread_t	observer;
