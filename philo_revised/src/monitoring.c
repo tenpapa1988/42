@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/21 02:05:22 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/22 08:33:15 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	check_if_all_ate(t_philo *philos)
 	while (i < philos[0].num_of_philos)//哲学者の数までiを回しながら、finished_eatingをチェック
 	{
 		pthread_mutex_lock(philos[i].meal_lock);
+		// printf("[DEBUG] Philosopher %d meals_eaten=%d, target=%d\n",
+        //    i + 1, philos[i].meals_eaten, philos[0].num_times_to_eat);
 		if (philos[i].meals_eaten >= philos[i].num_times_to_eat)
 			finished_eating++;
 		pthread_mutex_unlock(philos[i].meal_lock);

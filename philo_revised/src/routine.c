@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:26:15 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/21 01:56:47 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/22 08:33:04 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal = get_current_time();
 	philo->meals_eaten++;
+	// printf("[DEBUG] Philosopher %d has eaten %d times\n", philo->id, philo->meals_eaten);
 	pthread_mutex_unlock(philo->meal_lock);
 
 	ft_usleep(philo->time_to_eat);
