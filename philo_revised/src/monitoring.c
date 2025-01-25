@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/22 08:33:15 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:18:12 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	check_if_all_ate(t_philo *philos)
 	while (i < philos[0].num_of_philos)//哲学者の数までiを回しながら、finished_eatingをチェック
 	{
 		pthread_mutex_lock(philos[i].meal_lock);
-		// printf("[DEBUG] Philosopher %d meals_eaten=%d, target=%d\n",
-        //    i + 1, philos[i].meals_eaten, philos[0].num_times_to_eat);
 		if (philos[i].meals_eaten >= philos[i].num_times_to_eat)
 			finished_eating++;
 		pthread_mutex_unlock(philos[i].meal_lock);
@@ -98,7 +96,7 @@ void	*monitor(void *pointer)
 	{
 		if (check_if_dead(philos) == 1 || check_if_all_ate(philos) == 1)
 			break;
-		usleep(philos[0].time_to_die / 10 * 1000);
+		usleep(10);
 	}
 	return (pointer);
 }

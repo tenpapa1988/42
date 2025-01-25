@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 10:04:15 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:19:05 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void				*philo_routine(void *pointer);
 void				eat(t_philo *philo);
 void				dream(t_philo *philo);
 void				think(t_philo *philo);
+void				take_forks(t_philo *philo);
 
 // Monitor utils
 int					dead_loop(t_philo *philo);
