@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 13:06:23 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:33:34 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	init_input(t_philo *philo, char **argv)
 	if (argv[5])
 		philo->num_times_to_eat = ft_atoi(argv[5]);
 	else
-		philo->num_times_to_eat = -1;//回数制限がない場合には、-1で特別な値を入れている
+		philo->num_times_to_eat = -1;
 }
 
 //Initialize the philosophers
 void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 					char **argv)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < ft_atoi(argv[1]))
 	{
-		philos[i].id = i + 1;//philoのIDは1からスタート（配列的には0からだけど、IDは1から）
+		philos[i].id = i + 1;
 		philos[i].eating = 0;
 		philos[i].meals_eaten = 0;
 		init_input(&philos[i], argv);
@@ -45,10 +45,10 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].dead = &program->dead_flag;
 		philos[i].l_fork = &forks[i];
-		if (i == 0)//最初の哲学者は右フォークは哲学者の人数-1のフォークだから
+		if (i == 0)
 			philos[i].r_fork = &forks[philos[i].num_of_philos - 1];
 		else
-			philos[i].r_fork = &forks[i - 1];//2人目以降は自分の右は自分-1のフォークになる
+			philos[i].r_fork = &forks[i - 1];
 		i++;
 	}
 }
@@ -61,7 +61,7 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 	i = 0;
 	while (i < philo_num)
 	{
-		pthread_mutex_init(&forks[i], NULL);//mutexを使用する場合には必ず初期化！
+		pthread_mutex_init(&forks[i], NULL);
 		i++;
 	}
 }
@@ -70,7 +70,7 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 void	init_program(t_program *program, t_philo *philos)
 {
 	program->dead_flag = 0;
-	program->philos = philos;//ポインタを渡しているだけ
+	program->philos = philos;
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:00:55 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 13:08:03 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:37:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
-	if (str == NULL)	
+	if (str == NULL)
 		return (0);
 	i = 0;
 	while (str[i] != '\0')
@@ -45,11 +45,8 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	return (sign * res);
-
 }
 
-//ヘッダーファイルにてpthread_mutex_tで指定した変数をすべて解放する必要がある
-//write_lock, dead_lock, meal_lockについてはt_program側で管理しているので、こちらを解放すればOK。l_forkとr_forkはt_philo側で管理しているので、これは別途解放する必要がある
 void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {
 	int	i;
@@ -63,20 +60,19 @@ void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 	pthread_mutex_destroy(&program->write_lock);
 	pthread_mutex_destroy(&program->meal_lock);
 	pthread_mutex_destroy(&program->dead_lock);
-	while(i < program->philos[0].num_of_philos)
+	while (i < program->philos[0].num_of_philos)
 	{
 		pthread_mutex_destroy(&forks[i]);
 		i++;
 	}
 }
 
-//usleepをそのまま使うと誤差が生じるので、正しい時間で処理できるように変換している
 int	ft_usleep(size_t millisecond)
 {
 	size_t	start;
 
 	start = get_current_time();
-	while((get_current_time() - start) < millisecond)
+	while ((get_current_time() - start) < millisecond)
 		usleep(500);
 	return (0);
 }
@@ -87,5 +83,5 @@ size_t	get_current_time(void)
 
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday Error\n", 20);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);//課題の中でms（ミリ秒）で単位が出ているのでミリ秒で扱う
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

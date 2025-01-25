@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 13:19:05 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:26:53 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ typedef struct s_philo
 typedef struct s_program
 {
 	int				dead_flag;
-	pthread_mutex_t	dead_lock;//死亡管理
-	pthread_mutex_t	meal_lock;//食事管理
-	pthread_mutex_t	write_lock;//メッセージ出力管理
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
 	t_philo			*philos;
 }					t_program;
-//t_programとt_philoの両方にdead_lockがあるのは、t_programで全体を管理し、t_philoでその全体のポインタにアクセスするため
 
 // Main functions
 int					check_arg_content(char *arg);

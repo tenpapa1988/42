@@ -6,12 +6,11 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:05 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/19 12:53:55 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:34:25 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 //Check if the argv is only number
 int	check_arg_content(char *str)
@@ -56,10 +55,10 @@ int	main(int argc, char **argv)
 		return (write(2, "Wrong argument count\n", 22), 1);
 	if (check_val_args(argv) == 1)
 		return (1);
-	init_program(&program, philos);//programは構造体なので&が必須。philosは配列なので&不要。＆無くても先頭のアドレスを渡せる
-	init_forks(forks, ft_atoi(argv[1]));//フォークの数はphiloの数と同値
-	init_philos(philos, &program, forks, argv);//それぞれの哲学者を初期化する
-	thread_create(&program, forks);//threadを作る（全体と哲学者一人ひとりで）
-	destroy_all(NULL,&program, forks);//エラーに入らずに正常に動作したときにはdestroyがされないので、最後にここで行う
+	init_program(&program, philos);
+	init_forks(forks, ft_atoi(argv[1]));
+	init_philos(philos, &program, forks, argv);
+	thread_create(&program, forks);
+	destroy_all(NULL, &program, forks);
 	return (0);
 }
