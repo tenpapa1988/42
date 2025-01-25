@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:26:15 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 14:53:14 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:25:02 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,15 @@ void	eat(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->r_fork);
-		printf("[DEBUG] Philosopher %d locked right fork\n", philo->id);
 		message_print("has taken a fork", philo, philo->id);
 		pthread_mutex_lock(philo->l_fork);
-		printf("[DEBUG] Philosopher %d locked left fork\n", philo->id);
 		message_print("has taken a fork", philo, philo->id);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->l_fork);
-		printf("[DEBUG] Philosopher %d locked left fork\n", philo->id);
 		message_print("has taken a fork", philo, philo->id);
 		pthread_mutex_lock(philo->r_fork);
-		printf("[DEBUG] Philosopher %d locked right fork\n", philo->id);
 		message_print("has taken a fork", philo, philo->id);
 	}
 

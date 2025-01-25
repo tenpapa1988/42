@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:00:55 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 14:57:41 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:06:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_usleep(size_t millisecond)
 
 	start = get_current_time();
 	while((get_current_time() - start) < millisecond)
-		usleep(100);
+		usleep(200);
 	return (0);
 }
 
