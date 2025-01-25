@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/17 20:03:58 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/25 10:04:15 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# define PHILO_MAX 200
+# define PHILO_MAX 199
 
 # include <string.h>
 # include <unistd.h>

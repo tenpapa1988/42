@@ -1,44 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/17 15:22:48 by yussaito          #+#    #+#              #
-#    Updated: 2025/01/22 08:16:04 by yussaito         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#Standard
+NAME				= philo
 
-NAME = philo
+# Directories
+SRC_DIR				= ./src/
+OBJ_DIR				= ./obj/
 
-SRC = main.c utils.c init.c threads.c monitoring.c routine.c
+# Compiler and CFlag
+CC					= cc
+CFLAGS				= -Wall -Wextra -Werror -I ./inc/ -pthread -g
 
-MANPATH = $(addprefix ./src/, $(SRC))
+SRCS 				= $(SRC_DIR)main.c \
+					$(SRC_DIR)utils.c \
+					$(SRC_DIR)init.c \
+					$(SRC_DIR)threads.c \
+					$(SRC_DIR)monitoring.c \
+					$(SRC_DIR)routine.c
 
-FLAGS = -Wall -Wextra -Werror -O3 -pthread -g
 
-HEADER = ./src/philo.h
+OBJS				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
-# SANITIZER = -fsanitize=thread
+# Compile object files from source files
+$(OBJ_DIR)%.o: 		$(SRC_DIR)%.c
+					@mkdir -p $(@D)
+					$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: all clean fclean re debug
+# Build the executable
+$(NAME):			$(OBJS)
+					@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-all: $(NAME)
-
-$(NAME): $(MANPATH) $(HEADER)
-	@cc $(FLAGS) -o $(NAME) $(MANPATH) $(SANITIZER)
+# Standard targets
+all:				$(NAME)
 
 clean:
-	@rm -f $(NAME)
+					-rm -r $(OBJ_DIR)
 
-fclean: clean
-	@rm -f $(NAME)
+fclean: 			clean
+					-rm $(NAME)
 
-re: fclean all
+re:					fclean all
 
-debug: FLAGS += -g
-debug: re
-
-delay:
-	python3 delay_o_meter.py
+.PHONY:				all clean fclean re
