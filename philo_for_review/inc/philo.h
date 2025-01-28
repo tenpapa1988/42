@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 10:52:58 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:19:11 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,48 +46,46 @@ typedef struct s_philo
 typedef struct s_program
 {
 	int				dead_flag;
-	pthread_mutex_t	dead_lock;//死亡管理
-	pthread_mutex_t	meal_lock;//食事管理
-	pthread_mutex_t	write_lock;//メッセージ出力管理
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
 	t_philo			*philos;
 }					t_program;
-//t_programとt_philoの両方にdead_lockがあるのは、t_programで全体を管理し、t_philoでその全体のポインタにアクセスするため
 
-// Main functions
 int					check_arg_content(char *arg);
 int					check_val_args(char **argv);
 void				destroy_all(char *str, t_program *program,
 						pthread_mutex_t *forks);
 
-// Initialization
 void				init_program(t_program *program, t_philo *philos);
 void				init_forks(pthread_mutex_t *forks, int philo_num);
 void				init_philos(t_philo *philos, t_program *program,
 						pthread_mutex_t *forks, char **argv);
 void				init_input(t_philo *philo, char **argv);
 
-// Threads
-int					create_philosopher_threads(t_program *program, pthread_mutex_t *forks);
-int					thread_create(t_program *program, pthread_mutex_t *forks);
-int					create_odd_threads(t_program *program, pthread_mutex_t *forks) ;
-int					create_even_threads(t_program *program, pthread_mutex_t *forks);
-int					join_threads(t_program *program, pthread_t *observer, pthread_mutex_t *forks);
+int					create_philosopher_threads(t_program *program,
+						pthread_mutex_t *forks);
+int					thread_create(t_program *program,
+						pthread_mutex_t *forks);
+int					create_odd_threads(t_program *program,
+						pthread_mutex_t *forks);
+int					create_even_threads(t_program *program,
+						pthread_mutex_t *forks);
+int					join_threads(t_program *program, pthread_t *observer,
+						pthread_mutex_t *forks);
 void				*monitor(void *pointer);
 void				*philo_routine(void *pointer);
 
-// Actions
 void				eat(t_philo *philo);
 void				dream(t_philo *philo);
 void				think(t_philo *philo);
 void				take_forks(t_philo *philo);
 
-// Monitor utils
 int					dead_loop(t_philo *philo);
 int					check_if_all_ate(t_philo *philos);
 int					check_if_dead(t_philo *philos);
 int					philosopher_dead(t_philo *philo, size_t time_to_die);
 
-// Utils
 int					ft_atoi(char *str);
 int					ft_usleep(size_t microseconds);
 int					ft_strlen(char *str);
