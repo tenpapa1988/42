@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:26:15 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 09:26:30 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:08:43 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	eat(t_philo *philo)
 	if (philo->num_of_philos == 1)
 		return;
 
-	// 食事処理
+	// 食事処理。食べ始めの時間を最後に食べた時間に設定している
 	philo->eating = 1;
 	message_print("is eating", philo, philo->id);
 	pthread_mutex_lock(philo->meal_lock);
@@ -63,8 +63,8 @@ void	eat(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
 
-	ft_usleep(philo->time_to_eat);
-	philo->eating = 0;
+	ft_usleep(philo->time_to_eat);//最後に食べた時間＝食べはじめの時間にしてる＆ここを更新できてからtime_to_eatの時間を待つようにしている
+	philo->eating = 0;//食べ終わっているので、ここで食べている状態を0にする
 
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);

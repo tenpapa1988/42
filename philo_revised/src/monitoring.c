@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:00:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 09:01:35 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:25:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	message_print(char *str, t_philo *philo, int id)
 	pthread_mutex_lock(philo->write_lock);//複数のスレッドが同時にメッセージ出力をすることを防ぐため
 	if (!dead_loop(philo))//出力前に、哲学者が死んでいないか？をチェック（この関数内でチェックすることで、メッセージを出力する前には必ず死亡の哲学者がいないか？をチェックできる
 	{
-		time = get_current_time() - philo->start_time;
+		time = get_current_time() - philo->start_time;//timeはすぐに次のprintfで使用する変数
 		printf("%zu %d %s\n", time, id, str);//メッセージ出力
 	}
 	pthread_mutex_unlock(philo->write_lock);//ロックを解除

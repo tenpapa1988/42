@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:57:17 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 11:16:53 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:05:10 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int join_threads(t_program *program, pthread_t *observer, pthread_mutex_t *forks
         return (1);
     }
 
-    // 哲学者スレッドの終了を待機
+    // 哲学者スレッドの終了を待機。監視スレッドが閉じる＝実行を止めてOKなので、この順番である必要がある
     i = 0;
     while (i < program->philos[0].num_of_philos)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:00:55 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 09:02:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:44:25 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,5 @@ size_t	get_current_time(void)
 		write(2, "gettimeofday Error\n", 20);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);//課題の中でms（ミリ秒）で単位が出ているのでミリ秒で扱う
 }
+//time.tv_secは秒、time.tv_usecはマイクロ秒で出力される
+//1秒に1000を掛けることでミリ秒に、time.tv_usecを1000で割ることでミリ秒に単位変換している

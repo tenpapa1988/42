@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:21:48 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/25 13:06:23 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:59:54 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].dead = &program->dead_flag;
-		philos[i].l_fork = &forks[i];
+		philos[i].l_fork = &forks[i];//ここで人数分の左フォークを用意する（右も作っているがあくまで管理用であって、哲学者1人に対して2本用意してない
 		if (i == 0)//最初の哲学者は右フォークは哲学者の人数-1のフォークだから
 			philos[i].r_fork = &forks[philos[i].num_of_philos - 1];
 		else
