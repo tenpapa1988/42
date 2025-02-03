@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:03:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 11:19:11 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:09:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_program
 }					t_program;
 
 int					check_arg_content(char *arg);
+int					const_strlen(const char *str);
+int					print_error(const char *msg);
 int					check_val_args(char **argv);
 void				destroy_all(char *str, t_program *program,
 						pthread_mutex_t *forks);

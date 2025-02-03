@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:00:55 by yussaito          #+#    #+#             */
-/*   Updated: 2025/01/28 11:20:58 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:16:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,18 @@ int	ft_atoi(char *str)
 
 void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {
-	int	i;
+	int		i;
+	ssize_t	ret;
 
 	i = 0;
 	if (str)
 	{
-		write(2, str, ft_strlen(str));
-		write(2, "\n", 1);
+		ret = write(2, str, ft_strlen(str));
+		if (ret < 0)
+			print_error("Error writing to stderr\n");
+		ret = write(2, "\n", 1);
+		if (ret < 0)
+			print_error("Error writing newline to stderr\n");
 	}
 	pthread_mutex_destroy(&program->write_lock);
 	pthread_mutex_destroy(&program->meal_lock);
@@ -82,6 +87,6 @@ size_t	get_current_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday Error\n", 20);
+		print_error("gettimeofday Error\n");
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
