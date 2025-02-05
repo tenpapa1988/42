@@ -7,7 +7,7 @@ OBJ_DIR				= ./obj/
 
 # Compiler and CFlag
 CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -I ./inc/ -O3 -pthread -g
+CFLAGS				= -Wall -Wextra -Werror -I ./inc/ -O3 -pthread
 
 SRCS 				= $(SRC_DIR)main.c \
 					$(SRC_DIR)utils.c \
