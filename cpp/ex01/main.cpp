@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 01:53:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/03 01:53:21 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/03 06:41:19 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main() {
 		if (command == "ADD") {
 			phoneBook.addContact();
 		} else if (command == "SEARCH") {
-			phoneBook.serachContacts();
+			phoneBook.searchContacts();
 		} else if (command == "EXIT") {
 			break;
 		} else {
