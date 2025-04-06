@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 05:18:53 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/03 05:19:31 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/06 01:26:55 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 Contact::Contact() {}
 
 void Contact::setContact() {
-    std::cout << "Enter first name: ";
-    std::getline(std::cin, firstName);
-    std::cout << "Enter last name: ";
-    std::getline(std::cin, lastName);
-    std::cout << "Enter nickname: ";
-    std::getline(std::cin, nickname);
-    std::cout << "Enter phone number: ";
-    std::getline(std::cin, phoneNumber);
-    std::cout << "Enter darkest secret: ";
-    std::getline(std::cin, darkestSecret);
+    while (true) {
+        std::cout << "Enter first name: ";
+        if (!std::getline(std::cin, firstName)) break; 
+        std::cout << "Enter last name: ";
+        if (!std::getline(std::cin, lastName)) break;
+        std::cout << "Enter nicknams: ";
+        if (!std::getline(std::cin, nickname)) break; 
+        std::cout << "Enter phone number: ";
+        if (!std::getline(std::cin, phoneNumber)) break; 
+        std::cout << "Enter darkest secret: ";
+        if (!std::getline(std::cin, darkestSecret)) break; 
 
-    if (firstName.empty() || lastName.empty() || nickname.empty() || phoneNumber.empty() || darkestSecret.empty()) {
-        std::cout << "Error: All fields must be filled." << std::endl;
-        setContact();
+        if (firstName.empty() || lastName.empty() || nickname.empty() || phoneNumber.empty() || darkestSecret.empty()) {
+            std::cout << "Error: All fields must be filled." << std::endl;
+            continue;
+        }
+        break;
     }
 }
 
