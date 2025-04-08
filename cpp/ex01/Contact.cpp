@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 05:18:53 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/06 01:26:55 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/08 06:04:13 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void Contact::setContact() {
         if (!std::getline(std::cin, firstName)) break; 
         std::cout << "Enter last name: ";
         if (!std::getline(std::cin, lastName)) break;
-        std::cout << "Enter nicknams: ";
+        std::cout << "Enter nicknames: ";
         if (!std::getline(std::cin, nickname)) break; 
         std::cout << "Enter phone number: ";
         if (!std::getline(std::cin, phoneNumber)) break; 
