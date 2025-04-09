@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:57:39 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/09 01:22:33 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/09 02:02:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ void	Account::makeDeposit(int deposit) {
 	std::cout << ";amount:" << _amount
 			  << ";nb_deposits:" << _nbDeposits
 			  << std::endl;
+}
+
+bool	Account::makeWithdrawal(int withdrawal) {
+	_displayTimestamp();
+	std::cout << "index:" << _accountIndex
+			  << ";p_amount:" << _amount
+			  << ";withdrawal:";
+	if (withdrawal <= _amount) {
+		_amount -= withdrawal;
+		_totalAmount -= withdrawal;
+		_nbWithdrawals++;
+		_totalNbWithdrawals++;
+		std:cout  << withdrawal
+				  << ";amount:" << _amount
+				  << ";nb_withdrawals:" << _nbWithdrawals
+				  << std::endl;
+		return true;
+	} else {
+		std::cout << "refused" << std::endl;
+		return false;
+	}
 }
