@@ -6,12 +6,14 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:28:18 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/23 12:39:43 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/28 07:50:12 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
+
+#include <iostream>
 
 class Fixed {
 private:

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:28:22 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/23 12:39:35 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/28 07:58:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ Fixed::Fixed(const float floatVal) {
 
 Fixed::Fixed(const Fixed& other) {
     std::cout << "Copy constructor called" << std::endl;
-    _fixedPointValue = other.getRawBits();
+    _fixedPointValue = other._fixedPointValue;
 }
 
 Fixed& Fixed::operator=(const Fixed& other) {
     std::cout << "Copy assignment operator called" << std::endl;
     if (this != &other) {
-        _fixedPointValue = other.getRawBits();
+        _fixedPointValue = other._fixedPointValue;
     }
     return *this;
 }
