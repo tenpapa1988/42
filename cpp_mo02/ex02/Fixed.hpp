@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 14:08:07 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/28 14:21:45 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/04/29 08:11:51 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define FIXED_HPP
 
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 private:
@@ -29,7 +30,7 @@ public:
 	~Fixed();
 
 	int	getRawBits(void) const;
-	void toInt(int const raw);
+	void setRawBits(int const raw);
 
 	float toFloat(void) const;
 	int	toInt(void) const;
@@ -47,14 +48,16 @@ public:
 	Fixed operator/(const Fixed& other) const;
 
 	Fixed& operator++();
-	Fixed& operator++(int);
+	Fixed operator++(int);
 	Fixed& operator--();
-	Fixed& operator--(int);
+	Fixed operator--(int);
 
-	static Fixed& min(Fixed& a, Fixed& b);
-	static const Fixed& min(const Fixed& a, const Fixed& b);
-	static Fixed max(Fixed& a, Fixed& b);
-	static const Fixed& max(const Fixed& a, const Fixed& b);
+    static Fixed& min(Fixed& a, Fixed& b);
+    static const Fixed& min(const Fixed& a, const Fixed& b);
+    static Fixed& max(Fixed& a, Fixed& b);
+    static const Fixed& max(const Fixed& a, const Fixed& b);
+    static Fixed& max(Fixed& a, const Fixed& b);
+    static Fixed& max(const Fixed& a, Fixed& b);
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed);
