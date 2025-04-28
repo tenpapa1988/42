@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.cpp                                         :+:      :+:    :+:   */
+/*   Replace.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 23:14:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/20 11:52:39 by yussaito         ###   ########.fr       */
+/*   Created: 2025/04/20 12:10:26 by yussaito          #+#    #+#             */
+/*   Updated: 2025/04/20 12:29:30 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanB.hpp"
-#include <iostream>
+#ifndef REPLACE_HPP
+#define REPLACE_HPP
 
-HumanB::HumanB(const std::string& name) : name(name), weapon(NULL) {}
+#include <string>
 
-void	HumanB::setWeapon(Weapon& w) {
-	weapon = &w;
-}
+class Replace {
+public:
+	static std::string replaceAll(const std::string& input, const std::string& s1, const std::string& s2);
+};
 
-void	HumanB::attack() const {
-	if (weapon)
-		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
-	else
-		std::cout << name << "has no weapon to attack with" << std::endl;	
-}
+#endif
