@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 13:03:37 by yussaito          #+#    #+#             */
-/*   Updated: 2025/05/02 10:59:51 by yussaito         ###   ########.fr       */
+/*   Created: 2025/05/02 10:57:40 by yussaito          #+#    #+#             */
+/*   Updated: 2025/05/02 13:49:22 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
+
 #include "ClapTrap.hpp"
 
-int	main() {
-	ClapTrap a("Clappy");
+class ScavTrap : public ClapTrap {
+public:
+	ScavTrap();
+	ScavTrap(const std::string& name);
+	ScavTrap(const ScavTrap& other);
+	ScavTrap& operator=(const ScavTrap& other);
+	~ScavTrap();
 
-	a.attack("Target Dummy");
-	a.takeDamage(3);
-	a.beRepaired(5);
-	a.attack("Another Dummy");
-	a.takeDamage(8);
-	a.beRepaired(2);
-	a.attack("Final Boss");
+	void attack(const std::string& target);
+	void guardGate();
+};
 
-	return 0;
-}
+#endif
