@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:15:09 by yussaito          #+#    #+#             */
-/*   Updated: 2025/05/07 09:23:56 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:17:39 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ public:
 	virtual ~Dog();
 
 	virtual void makeSound() const;
+
+	Brain* getBrain() const;
 };
 
 #endif

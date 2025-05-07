@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:15:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/05/07 09:27:17 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:20:02 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int main() {
 	dog1.makeSound();
 	Dog dog2 = dog1;
 	dog2.makeSound();
+
+	std::cout << "Address of dog1.brain: " << dog1.getBrain() << std::endl;
+	std::cout << "Address of dog2.brain: " << dog2.getBrain() << std::endl;
 
 	return 0;
 }
