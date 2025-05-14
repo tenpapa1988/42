@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:57:39 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/09 05:50:07 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/14 09:14:18 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	Account::_totalNbWithdrawals = 0;
 void	Account::_displayTimestamp() {
 	std::time_t now = std::time(0);
 	std::tm* t = std::localtime(&now);
-	std::cout << "[" << (t->tm_year + 1990)
+	std::cout << "[" << (t->tm_year + 1900)
 			  << std::setw(2) << std::setfill('0') << (t->tm_mon + 1)
 			  << std::setw(2) << std::setfill('0') << t->tm_mday << "_"
 			  << std::setw(2) << std::setfill('0') << t->tm_hour

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 01:53:09 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/03 05:24:15 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/14 08:16:35 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ class Contact {
 		void setContact();
 		void displaySummary(int index) const;
 		void displayFull() const;
-		bool isEmpty() const;
 };
 
 #endif
