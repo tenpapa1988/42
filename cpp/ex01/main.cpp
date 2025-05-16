@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 01:53:19 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/03 06:41:19 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/17 08:54:34 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	main() {
 	while (true)
 	{
 		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-		std::getline(std::cin, command);
+		if (!std::getline(std::cin, command)) {
+			std::cout << "\nEOF detected. Exiting." << std::endl;
+			break;
+		}
 
 		if (command == "ADD") {
 			phoneBook.addContact();

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 01:53:09 by yussaito          #+#    #+#             */
-/*   Updated: 2025/05/14 08:16:35 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/17 08:52:36 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
+#include <cstdlib>
+#include <limits>
 
 class Contact {
 	private:

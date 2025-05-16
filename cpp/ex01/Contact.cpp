@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 05:18:53 by yussaito          #+#    #+#             */
-/*   Updated: 2025/05/14 08:16:28 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/17 08:53:03 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,66 @@ Contact::Contact() {}
 void Contact::setContact() {
     while (true) {
         std::cout << "Enter first name: ";
-        if (!std::getline(std::cin, firstName)) break; 
-        std::cout << "Enter last name: ";
-        if (!std::getline(std::cin, lastName)) break;
-        std::cout << "Enter nicknames: ";
-        if (!std::getline(std::cin, nickname)) break; 
-        std::cout << "Enter phone number: ";
-        if (!std::getline(std::cin, phoneNumber)) break; 
-        std::cout << "Enter darkest secret: ";
-        if (!std::getline(std::cin, darkestSecret)) break; 
+        if (!std::getline(std::cin, firstName)) {
+            if (std::cin.eof()) {
+                std::cout << "\nEOF detected. Exiting input." << std::endl;
+                std::exit(0);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
 
-        if (firstName.empty() || lastName.empty() || nickname.empty() || phoneNumber.empty() || darkestSecret.empty()) {
+        std::cout << "Enter last name: ";
+        if (!std::getline(std::cin, lastName)) {
+            if (std::cin.eof()) {
+                std::cout << "\nEOF detected. Exiting input." << std::endl;
+                std::exit(0);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        std::cout << "Enter nickname: ";
+        if (!std::getline(std::cin, nickname)) {
+            if (std::cin.eof()) {
+                std::cout << "\nEOF detected. Exiting input." << std::endl;
+                std::exit(0);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        std::cout << "Enter phone number: ";
+        if (!std::getline(std::cin, phoneNumber)) {
+            if (std::cin.eof()) {
+                std::cout << "\nEOF detected. Exiting input." << std::endl;
+                std::exit(0);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        std::cout << "Enter darkest secret: ";
+        if (!std::getline(std::cin, darkestSecret)) {
+            if (std::cin.eof()) {
+                std::cout << "\nEOF detected. Exiting input." << std::endl;
+                std::exit(0);
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        if (firstName.empty() || lastName.empty() || nickname.empty() ||
+            phoneNumber.empty() || darkestSecret.empty()) {
             std::cout << "Error: All fields must be filled." << std::endl;
             continue;
         }
+
         break;
     }
 }
