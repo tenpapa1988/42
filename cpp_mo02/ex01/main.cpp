@@ -6,14 +6,14 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:27:40 by yussaito          #+#    #+#             */
-/*   Updated: 2025/04/23 12:30:34 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/05/22 08:16:52 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
 
-int main( void ) {
+int main(void) {
 	Fixed a;
 	Fixed const b( 10 );
 	Fixed const c( 42.42f );
