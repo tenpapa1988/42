@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:15:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/18 11:57:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:04:25 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
+#ifndef ROBOTOMYREQUESTFORM_HPP
+#define ROBOTOMYREQUESTFORM_HPP
 
-int main() {
-    try {
-        Bureaucrat a("Alice", 30);
-        Form f("Application", 50, 40);
+#include "AForm.hpp"
+#include <cstdlib>
+#include <ctime>
 
-        std::cout << f << std::endl;
-        a.signForm(f);
-        std::cout << f << std::endl;
+class RobotomyRequestForm : public AForm {
+private:
+    std::string target;
 
-        Bureaucrat b("Bob", 60);
-        b.signForm(f);
+public:
+    RobotomyRequestForm(const std::string& target);
+    ~RobotomyRequestForm();
 
-    } catch (std::exception& e) {
-        std::cerr << "Main exception: " << e.what() << std::endl;
-    }
+    void execute(const Bureaucrat& executor) const;
+};
 
-    return 0;
-}
+#endif

@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:15:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/18 11:57:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:03:55 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
+#ifndef SHRUBBERYCREATIONFORM_HPP
+#define SHRUBBERYCREATIONFORM_HPP
 
-int main() {
-    try {
-        Bureaucrat a("Alice", 30);
-        Form f("Application", 50, 40);
+#include "AForm.hpp"
+#include <fstream>
 
-        std::cout << f << std::endl;
-        a.signForm(f);
-        std::cout << f << std::endl;
+class ShrubberyCreationForm : public AForm {
+private:
+    std::string target;
 
-        Bureaucrat b("Bob", 60);
-        b.signForm(f);
+public:
+    ShrubberyCreationForm(const std::string& target);
+    ~ShrubberyCreationForm();
 
-    } catch (std::exception& e) {
-        std::cerr << "Main exception: " << e.what() << std::endl;
-    }
+    void execute(const Bureaucrat& executor) const;
+};
 
-    return 0;
-}
+#endif
