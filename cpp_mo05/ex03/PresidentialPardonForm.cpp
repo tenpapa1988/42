@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
+/*   PresidentialPardonForm.cpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:15:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/18 13:51:29 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:04:56 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
-    : AForm("RobotomyRequestForm", 72, 45), target(target) {
-}
+PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
+    : AForm("PresidentialPardonForm", 25, 5), target(target) {}
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+PresidentialPardonForm::~PresidentialPardonForm() {}
 
-void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
+void PresidentialPardonForm::execute(const Bureaucrat& executor) const {
     if (!getIsSigned())
         throw NotSignedException();
     if (executor.getGrade() > getGradeToExecute())
         throw GradeTooLowException();
 
-    std::cout << "Bzzz... drilling noises..." << std::endl;
-    if (std::rand() % 2)
-        std::cout << target << " has been robotomized successfully!" << std::endl;
-    else
-        std::cout << "Robotomy failed on " << target << "." << std::endl;
+    std::cout << target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
