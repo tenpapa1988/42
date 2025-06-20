@@ -6,7 +6,7 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/06 10:15:15 by yussaito          #+#    #+#              #
-#    Updated: 2025/06/20 13:25:31 by yussaito         ###   ########.fr        #
+#    Updated: 2025/06/20 15:12:28 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS = main.cpp Bureaucrat.cpp AForm.cpp \
        ShrubberyCreationForm.cpp \
        RobotomyRequestForm.cpp \
-       PresidentialPardonForm.cpp
+       PresidentialPardonForm.cpp \
+	   Intern.cpp
 OBJ = $(SRCS:.cpp=.o)
 
 all: $(NAME)
