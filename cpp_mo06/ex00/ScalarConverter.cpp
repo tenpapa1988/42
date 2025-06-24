@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:44:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/23 12:45:52 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:42:54 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@
 #include <cmath>
 
 static bool isPseudoLiteral(const std::string& str) {
-    return str == "nan" || str == "nanf" ||
-           str == "+inf" || str == "+inff" ||
-           str == "-inf" || str == "-inff";
+    return str == "nanf" || str == "+inff" || str == "-inff";
 }
+
 
 void ScalarConverter::convert(const std::string& literal) {
     char c = 0;
@@ -38,7 +37,7 @@ void ScalarConverter::convert(const std::string& literal) {
         d = static_cast<double>(c);
     } else if (isPseudoLiteral(literal)) {
         std::string stripped = literal;
-        if (literal[literal.length() - 1] == 'f') stripped = literal.substr(0, literal.length() - 1);
+        stripped = literal.substr(0, literal.length() - 1);
         d = std::strtod(stripped.c_str(), NULL);
         f = static_cast<float>(d);
     } else {
