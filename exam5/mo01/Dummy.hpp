@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Dummy.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/01/16 23:06:26 by ncolomer          #+#    #+#             */
+/*   Updated: 2020/02/04 12:50:12 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef DUMMY_HPP
+# define DUMMY_HPP
 
-class Base {
+# include "ATarget.hpp"
+
+class Dummy: public ATarget
+{
 public:
-    virtual ~Base(); 
+	Dummy();
+	virtual ~Dummy();
+
+	virtual ATarget *clone(void) const;
 };
 
 #endif

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Fireball.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/02/04 12:49:03 by ncolomer          #+#    #+#             */
+/*   Updated: 2020/02/13 16:40:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#include "Fireball.hpp"
 
-class Base {
-public:
-    virtual ~Base(); 
-};
+Fireball::Fireball():
+	ASpell("Fireball", "burnt to a crisp") {}
 
-#endif
+Fireball::~Fireball() {}
+
+ASpell *Fireball::clone(void) const {
+	return (new Fireball(*this));
+}

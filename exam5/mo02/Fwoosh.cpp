@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Fwoosh.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/01/16 23:24:08 by ncolomer          #+#    #+#             */
+/*   Updated: 2020/02/13 16:39:56 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#include "Fwoosh.hpp"
 
-class Base {
-public:
-    virtual ~Base(); 
-};
+Fwoosh::Fwoosh():
+	ASpell("Fwoosh", "fwooshed") {}
 
-#endif
+Fwoosh::~Fwoosh() {}
+
+ASpell *Fwoosh::clone(void) const {
+	return (new Fwoosh(*this));
+}

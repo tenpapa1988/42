@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   BrickWall.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/02/04 12:58:33 by ncolomer          #+#    #+#             */
+/*   Updated: 2020/02/04 12:59:02 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef BRICKWALL_HPP
+# define BRICKWALL_HPP
 
-class Base {
+# include "ATarget.hpp"
+
+class BrickWall: public ATarget
+{
 public:
-    virtual ~Base(); 
+	BrickWall();
+	virtual ~BrickWall();
+
+	virtual ATarget *clone(void) const;
 };
 
 #endif

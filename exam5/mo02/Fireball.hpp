@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Fireball.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/02/04 12:48:38 by ncolomer          #+#    #+#             */
+/*   Updated: 2020/02/04 13:01:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef FIREBALL_HPP
+# define FIREBALL_HPP
 
-class Base {
+# include "ASpell.hpp"
+
+class Fireball: public ASpell
+{
 public:
-    virtual ~Base(); 
+	Fireball();
+	virtual ~Fireball();
+
+	virtual ASpell *clone(void) const;
 };
 
 #endif

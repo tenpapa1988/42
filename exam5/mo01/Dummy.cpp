@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Dummy.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/01/16 23:16:30 by ncolomer          #+#    #+#             */
+/*   Updated: 2025/07/04 09:30:13 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#include "Dummy.hpp"
 
-class Base {
-public:
-    virtual ~Base(); 
-};
+Dummy::Dummy():
+	ATarget("Target Practice Dummy") {}
 
-#endif
+Dummy::~Dummy() {}
+
+ATarget *Dummy::clone(void) const {
+	return (new Dummy(*this));
+}

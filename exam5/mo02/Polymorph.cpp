@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   Polymorph.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:02:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:00 by yussaito         ###   ########.fr       */
+/*   Created: 2020/02/04 12:49:28 by ncolomer          #+#    #+#             */
+/*   Updated: 2025/07/04 09:41:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#include "Polymorph.hpp"
 
-class Base {
-public:
-    virtual ~Base(); 
-};
+Polymorph::Polymorph():
+	ASpell("Polymorph", "turned into a critter") {}
 
-#endif
+Polymorph::~Polymorph() {}
+
+ASpell *Polymorph::clone(void) const {
+	return (new Polymorph(*this));
+}
