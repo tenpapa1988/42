@@ -6,13 +6,18 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 10:53:22 by yussaito          #+#    #+#              #
-#    Updated: 2025/07/16 10:53:41 by yussaito         ###   ########.fr        #
+#    Updated: 2025/07/16 14:31:24 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/bash
 
-until mysqladmin ping -hmariadb -u$MYSQL_USER -p$MYSQL_PASSWORD --silent; do
+echo "MYSQL_HOST=$MYSQL_HOST"
+echo "MYSQL_USER=$MYSQL_USER"
+echo "MYSQL_PASSWORD=$MYSQL_PASSWORD"
+
+until mysqladmin ping -h$MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD --silent; do
+
   echo "⏳ Waiting for MariaDB to be ready..."
   sleep 2
 done
@@ -24,7 +29,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     --dbname=$MYSQL_DATABASE \
     --dbuser=$MYSQL_USER \
     --dbpass=$MYSQL_PASSWORD \
-    --dbhost=mariadb:3306 \
+    --dbhost=$MYSQL_HOST \
     --path=/var/www/html \
     --allow-root
 
