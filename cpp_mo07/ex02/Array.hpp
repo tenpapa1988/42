@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:36:32 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/01 14:36:59 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:12:45 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ private:
 
 public:
     Array() : _data(NULL), _size(0) {}
-
     Array(unsigned int n) : _data(new T[n]), _size(n) {}
-
     Array(const Array& other) : _data(NULL), _size(0) {
         *this = other;
     }

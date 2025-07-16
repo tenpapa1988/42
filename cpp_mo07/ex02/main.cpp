@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:36:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/01 14:38:14 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:17:33 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int, char**)
         numbers[i] = value;
         mirror[i] = value;
     }
-    //SCOPE
+
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
@@ -62,6 +62,6 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
-    delete [] mirror;//
+    delete [] mirror;
     return 0;
 }
