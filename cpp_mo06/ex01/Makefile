@@ -6,13 +6,13 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/06 10:15:15 by yussaito          #+#    #+#              #
-#    Updated: 2025/06/26 11:35:16 by yussaito         ###   ########.fr        #
+#    Updated: 2025/07/25 16:05:50 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = seriallizer
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 SRC = main.cpp Serializer.cpp
 OBJ = $(SRC:.cpp=.o)
 

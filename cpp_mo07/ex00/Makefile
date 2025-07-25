@@ -6,13 +6,13 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/01 10:24:10 by yussaito          #+#    #+#              #
-#    Updated: 2025/07/01 10:31:22 by yussaito         ###   ########.fr        #
+#    Updated: 2025/07/25 16:07:02 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = whatever
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 

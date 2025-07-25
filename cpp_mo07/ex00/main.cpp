@@ -6,12 +6,12 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:30:59 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/01 10:31:00 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:08:27 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "Whatever.hpp"
+#include "whatever.hpp"
 
 int main(void) {
     int a = 2;

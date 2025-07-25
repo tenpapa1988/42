@@ -6,13 +6,13 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 13:15:42 by yussaito          #+#    #+#              #
-#    Updated: 2025/07/11 13:50:56 by yussaito         ###   ########.fr        #
+#    Updated: 2025/07/25 16:10:21 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = PmergeMe
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
 

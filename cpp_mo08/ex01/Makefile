@@ -6,13 +6,13 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/06 10:15:15 by yussaito          #+#    #+#              #
-#    Updated: 2025/07/07 13:05:26 by yussaito         ###   ########.fr        #
+#    Updated: 2025/07/25 16:09:34 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = span
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 SRC = main.cpp Span.cpp
 OBJ = $(SRC:.cpp=.o)
 
