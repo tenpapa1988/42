@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:36:32 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/04 12:12:45 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/07/31 08:17:38 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ public:
 
     T& operator[](unsigned int index) {
         if (index >= _size)
-            throw std::out_of_range("Index out of bounds");
+            throw std::out_of_range("Index out of bounds (non-const)");
         return _data[index];
     }
 
     const T& operator[](unsigned int index) const {
         if (index >= _size)
-            throw std::out_of_range("Index out of bounds");
+            throw std::out_of_range("Index out of bounds (const)");
         return _data[index];
     }
 

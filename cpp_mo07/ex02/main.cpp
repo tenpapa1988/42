@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:36:11 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/04 10:17:33 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/07/31 08:27:25 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 int main(int, char**)
 {
     Array<int> numbers(MAX_VAL);
+	std::cout << "Size: " << numbers.size() << std::endl;
+
     int* mirror = new int[MAX_VAL];
     srand(time(NULL));
     for (int i = 0; i < MAX_VAL; i++)
@@ -57,6 +59,16 @@ int main(int, char**)
     {
         std::cerr << e.what() << '\n';
     }
+
+	const Array<int> constArray = numbers;
+	try
+	{
+		std::cout << constArray[MAX_VAL] << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 
     for (int i = 0; i < MAX_VAL; i++)
     {
