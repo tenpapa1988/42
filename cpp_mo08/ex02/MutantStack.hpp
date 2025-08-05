@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:29:14 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/09 14:27:11 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:51:26 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ public:
     }
 	~MutantStack() {}
 
-    // begin/end の実装
     iterator begin() { return this->c.begin(); }
     iterator end() { return this->c.end(); }
 
