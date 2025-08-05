@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 13:04:39 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/07 13:04:47 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:23:24 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int main() {
         sp.addNumber(9);
         sp.addNumber(11);
 
-        std::cout << sp.shortestSpan() << std::endl; // → 2
-        std::cout << sp.longestSpan() << std::endl;  // → 14
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
     }
 
     {
