@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:50:28 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:18:30 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@
 #include <climits>
 
 PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(const PmergeMe& other) {
+    this->_vectorInput = other._vectorInput;
+    this->_dequeInput = other._dequeInput;
+}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
+    if (this != &other) {
+        this->_vectorInput = other._vectorInput;
+        this->_dequeInput = other._dequeInput;
+    }
+    return *this;
+}
+
+PmergeMe::~PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
 

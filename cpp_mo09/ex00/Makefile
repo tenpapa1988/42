@@ -6,11 +6,11 @@
 #    By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 13:15:42 by yussaito          #+#    #+#              #
-#    Updated: 2025/07/25 16:10:15 by yussaito         ###   ########.fr        #
+#    Updated: 2025/08/06 07:53:34 by yussaito         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = bitcoint
+NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 SRC = main.cpp BitcoinExchange.cpp

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:41 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:48:42 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:16:47 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 class PmergeMe {
 public:
     PmergeMe();
+    PmergeMe(const PmergeMe& other);
+    PmergeMe& operator=(const PmergeMe& other);
     ~PmergeMe();
-
     void run(const std::vector<std::string>& args);
 
 private:

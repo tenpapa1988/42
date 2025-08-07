@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:16:00 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:17:43 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/06 07:46:56 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        BitcoinExchange btc("data.csv");  // ← 提供されたdata.csvを使う
-        btc.evaluateFile(argv[1]);        // ← 引数でinput.txtなどを渡す
+        BitcoinExchange btc("data.csv");
+        btc.evaluateFile(argv[1]);
     } catch (std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
         return 1;

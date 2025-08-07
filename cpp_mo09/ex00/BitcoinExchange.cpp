@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:17:57 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:17:58 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:16:08 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@
 #include <cstdlib>
 #include <limits>
 
-BitcoinExchange::BitcoinExchange(const std::string& dbFile) {
-    loadDatabase(dbFile);
+BitcoinExchange::BitcoinExchange() {}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) {
+    this->_rateMap = other._rateMap;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
+    if (this != &other)
+        this->_rateMap = other._rateMap;
+    return *this;
 }
 
 BitcoinExchange::~BitcoinExchange() {}
@@ -46,7 +54,7 @@ void BitcoinExchange::loadDatabase(const std::string& dbFile) {
         throw std::runtime_error("Could not open database file.");
 
     std::string line;
-    std::getline(file, line); // skip header
+    std::getline(file, line);
 
     while (std::getline(file, line)) {
         std::istringstream ss(line);
@@ -64,7 +72,7 @@ std::string BitcoinExchange::getClosestDate(const std::string& date) const {
     if (it != _rateMap.end() && it->first == date)
         return date;
     if (it == _rateMap.begin())
-        return "";  // too early
+        return "";
     --it;
     return it->first;
 }
@@ -77,7 +85,7 @@ void BitcoinExchange::evaluateFile(const std::string& inputFile) const {
     }
 
     std::string line;
-    std::getline(file, line); // skip header
+    std::getline(file, line);
 
     while (std::getline(file, line)) {
         std::istringstream ss(line);

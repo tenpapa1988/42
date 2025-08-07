@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:23:08 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:23:29 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:16:27 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@
 #include <cstdlib>
 
 RPN::RPN() {}
+
+RPN::RPN(const RPN& other) {
+    this->_stack = other._stack;
+}
+
+RPN& RPN::operator=(const RPN& other) {
+    if (this != &other)
+        this->_stack = other._stack;
+    return *this;
+}
 
 RPN::~RPN() {}
 
@@ -32,8 +42,11 @@ void RPN::applyOperator(const std::string& op) {
     if (_stack.size() < 2)
         throw std::runtime_error("Error");
 
-    int rhs = _stack.top(); _stack.pop();
-    int lhs = _stack.top(); _stack.pop();
+    int rhs = _stack.top();
+	_stack.pop();
+
+    int lhs = _stack.top();
+	_stack.pop();
     int result;
 
     if (op == "+")

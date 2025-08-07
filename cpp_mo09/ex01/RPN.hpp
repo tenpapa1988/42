@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:23:10 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:23:20 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:16:19 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 class RPN {
 public:
     RPN();
+    RPN(const RPN& other);
+    RPN& operator=(const RPN& other);
     ~RPN();
 
     int evaluate(const std::string& expression);

@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:17:35 by yussaito          #+#    #+#             */
-/*   Updated: 2025/07/11 13:17:36 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:19:26 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 
 class BitcoinExchange {
 public:
-    BitcoinExchange(const std::string& dbFile);
+    BitcoinExchange();
+    BitcoinExchange(const BitcoinExchange& other);
+    BitcoinExchange& operator=(const BitcoinExchange& other);
     ~BitcoinExchange();
 
     void evaluateFile(const std::string& inputFile) const;
