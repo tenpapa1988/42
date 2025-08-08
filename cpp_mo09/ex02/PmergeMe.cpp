@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/07 09:18:30 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/08 14:15:17 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
     }
     return *this;
 }
-
-PmergeMe::~PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
 
