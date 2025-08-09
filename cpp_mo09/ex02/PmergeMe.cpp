@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/08 14:15:17 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/09 10:16:31 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,18 +165,20 @@ void PmergeMe::insertionSort(std::deque<int>& deq, int left, int right) {
 }
 
 void PmergeMe::merge(std::deque<int>& deq, int left, int mid, int right) {
-    std::deque<int> tmp;
-    int i = left, j = mid + 1;
+    std::deque<int> tmp(right - left + 1);
+    int i = left, j = mid + 1, k = 0;
+
     while (i <= mid && j <= right) {
         if (deq[i] <= deq[j])
-            tmp.push_back(deq[i++]);
+            tmp[k++] = deq[i++];
         else
-            tmp.push_back(deq[j++]);
+            tmp[k++] = deq[j++];
     }
     while (i <= mid)
-        tmp.push_back(deq[i++]);
+        tmp[k++] = deq[i++];
     while (j <= right)
-        tmp.push_back(deq[j++]);
-    for (size_t k = 0; k < tmp.size(); ++k)
-        deq[left + k] = tmp[k];
+        tmp[k++] = deq[j++];
+
+    for (int l = 0; l < k; ++l)
+        deq[left + l] = tmp[l];
 }
