@@ -6,179 +6,289 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/09 10:16:31 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/12 09:40:55 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <iostream>
-#include <sstream>
-#include <cstdlib>
-#include <ctime>
-#include <stdexcept>
-#include <climits>
+#include <iostream>   // std::cout, std::endl
+#include <stdexcept>  // std::runtime_error
+#include <cctype>     // std::isdigit
+#include <climits>    // INT_MAX
+#include <cstdlib>    // std::strtol
+#include <ctime>      // clock, CLOCKS_PER_SEC
+#include <algorithm>  // std::find, std::lower_bound, std::inplace_merge など必要に応じて
 
-PmergeMe::PmergeMe() {}
+////////////////////////// 共有関数 ///////////////////////////////////
 
-PmergeMe::PmergeMe(const PmergeMe& other) {
-    this->_vectorInput = other._vectorInput;
-    this->_dequeInput = other._dequeInput;
+// pairの「second（大きい方）」で比較（昇順）
+bool custom_cmp(std::pair<int, int> a, std::pair<int, int> b)
+{
+    return a.second < b.second;
 }
 
-PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
-    if (this != &other) {
-        this->_vectorInput = other._vectorInput;
-        this->_dequeInput = other._dequeInput;
-    }
-    return *this;
-}
+void print_before(char **argv)
+{
+    int i = 1;
+    int error = 0;
 
-PmergeMe::~PmergeMe() {}
-
-void PmergeMe::run(const std::vector<std::string>& args) {
-    parseInput(args);
-
-    printContainer("Before:", _vectorInput);
-
-    std::vector<int> vec = _vectorInput;
-    std::deque<int> deq = _dequeInput;
-
-    clock_t startVec = clock();
-    mergeInsertSort(vec, 0, vec.size() - 1);
-    clock_t endVec = clock();
-
-    clock_t startDeq = clock();
-    mergeInsertSort(deq, 0, deq.size() - 1);
-    clock_t endDeq = clock();
-
-    printContainer("After:", vec);
-
-    double timeVec = static_cast<double>(endVec - startVec) / CLOCKS_PER_SEC * 1e6;
-    double timeDeq = static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC * 1e6;
-
-    std::cout << "Time to process a range of " << vec.size() << " elements with std::vector : "
-              << timeVec << " us" << std::endl;
-    std::cout << "Time to process a range of " << deq.size() << " elements with std::deque : "
-              << timeDeq << " us" << std::endl;
-}
-
-void PmergeMe::parseInput(const std::vector<std::string>& args) {
-    for (size_t i = 0; i < args.size(); ++i) {
-        const std::string& str = args[i];
-        for (size_t j = 0; j < str.length(); ++j) {
-            if (!isdigit(str[j]))
-                throw std::runtime_error("Error");
+    std::cout << "Before: ";
+    while (argv[i])
+    {
+        std::string input = argv[i];
+        std::cout << input << " ";
+        if (input.size() > 10 || std::atol(input.c_str()) > INT_MAX || std::atol(input.c_str()) < 0)
+            error = 1;
+        for (size_t j = 0; j < input.size(); j++)
+        {
+            if (!isdigit(static_cast<unsigned char>(input[j])))
+                error = 1;
         }
-
-        long value = std::strtol(str.c_str(), NULL, 10);
-        if (value < 0 || value > INT_MAX)
-            throw std::runtime_error("Error");
-
-        _vectorInput.push_back(static_cast<int>(value));
-        _dequeInput.push_back(static_cast<int>(value));
+        i++;
     }
+    std::cout << "\n";
+    if (error == 1)
+        throw CustomException("Error: input is invalid");
 }
 
-void PmergeMe::printContainer(const std::string& label, const std::vector<int>& container) const {
-    std::cout << label;
-    for (size_t i = 0; i < container.size(); ++i)
-        std::cout << " " << container[i];
-    std::cout << std::endl;
-}
+////////////////////////// std::vector 版 //////////////////////////////////////
 
-void PmergeMe::printContainer(const std::string& label, const std::deque<int>& container) const {
-    std::cout << label;
-    for (size_t i = 0; i < container.size(); ++i)
-        std::cout << " " << container[i];
-    std::cout << std::endl;
-}
-
-// ---------- VECTOR ----------
-void PmergeMe::mergeInsertSort(std::vector<int>& vec, int left, int right) {
-    if (left >= right)
-        return;
-    if (right - left <= 10) {
-        insertionSort(vec, left, right);
-        return;
-    }
-
-    int mid = left + (right - left) / 2;
-    mergeInsertSort(vec, left, mid);
-    mergeInsertSort(vec, mid + 1, right);
-    merge(vec, left, mid, right);
-}
-
-void PmergeMe::insertionSort(std::vector<int>& vec, int left, int right) {
-    for (int i = left + 1; i <= right; ++i) {
-        int key = vec[i];
-        int j = i - 1;
-        while (j >= left && vec[j] > key) {
-            vec[j + 1] = vec[j];
-            --j;
+// argv から pair を作る（奇数個なら最後を additional_value に退避）
+void create_pairs(std::vector<std::pair<int,int> > *vecty, char **argv, int *additional_value)
+{
+    int i = 1;
+    while (argv[i])
+    {
+        if (argv[i] && argv[i + 1])
+        {
+            std::pair<int,int> p(std::atoi(argv[i]), std::atoi(argv[i + 1]));
+            vecty->push_back(p);
+            i += 2;
         }
-        vec[j + 1] = key;
-    }
-}
-
-void PmergeMe::merge(std::vector<int>& vec, int left, int mid, int right) {
-    std::vector<int> tmp(right - left + 1);
-    int i = left, j = mid + 1, k = 0;
-    while (i <= mid && j <= right) {
-        if (vec[i] <= vec[j])
-            tmp[k++] = vec[i++];
         else
-            tmp[k++] = vec[j++];
-    }
-    while (i <= mid)
-        tmp[k++] = vec[i++];
-    while (j <= right)
-        tmp[k++] = vec[j++];
-    for (int l = 0; l < k; ++l)
-        vec[left + l] = tmp[l];
-}
-
-// ---------- DEQUE ----------
-void PmergeMe::mergeInsertSort(std::deque<int>& deq, int left, int right) {
-    if (left >= right)
-        return;
-    if (right - left <= 10) {
-        insertionSort(deq, left, right);
-        return;
-    }
-
-    int mid = left + (right - left) / 2;
-    mergeInsertSort(deq, left, mid);
-    mergeInsertSort(deq, mid + 1, right);
-    merge(deq, left, mid, right);
-}
-
-void PmergeMe::insertionSort(std::deque<int>& deq, int left, int right) {
-    for (int i = left + 1; i <= right; ++i) {
-        int key = deq[i];
-        int j = i - 1;
-        while (j >= left && deq[j] > key) {
-            deq[j + 1] = deq[j];
-            --j;
+        {
+            *additional_value = std::atoi(argv[i]);
+            i++;
         }
-        deq[j + 1] = key;
     }
 }
 
-void PmergeMe::merge(std::deque<int>& deq, int left, int mid, int right) {
-    std::deque<int> tmp(right - left + 1);
-    int i = left, j = mid + 1, k = 0;
-
-    while (i <= mid && j <= right) {
-        if (deq[i] <= deq[j])
-            tmp[k++] = deq[i++];
-        else
-            tmp[k++] = deq[j++];
+// 各ペアを (小, 大) の形にそろえる
+void sort_pairs(std::vector<std::pair<int,int> > *vecty)
+{
+    for (std::vector<std::pair<int,int> >::iterator it = vecty->begin(); it != vecty->end(); ++it)
+    {
+        if (it->first > it->second)
+        {
+            int t = it->first;
+            it->first = it->second;
+            it->second = t;
+        }
     }
-    while (i <= mid)
-        tmp[k++] = deq[i++];
-    while (j <= right)
-        tmp[k++] = deq[j++];
+}
 
-    for (int l = 0; l < k; ++l)
-        deq[left + l] = tmp[l];
+// 再帰 merge sort（second で並べる）※list 版のロジックをそのままvectorイテレータで
+void mergeSort(std::vector<std::pair<int,int> >::iterator start,
+               std::vector<std::pair<int,int> >::iterator end,
+               size_t size)
+{
+    if (size == 0 && start != end)
+        size = static_cast<size_t>(end - start);
+    if (size <= 1)
+        return;
+
+    size_t firstHalf = size / 2;
+    size_t secondHalf = size - firstHalf;
+    std::vector<std::pair<int,int> >::iterator center = start + firstHalf;
+
+    mergeSort(start, center, firstHalf);
+    mergeSort(center, end, secondHalf);
+    std::inplace_merge(start, center, end, &custom_cmp);
+}
+
+// main_chain を初期化（各pairの second を並べ、さらに先頭に最初の first を入れる）
+void init_main_chain(std::vector<int> *main_chain, std::vector< std::pair<int,int> > vecty)
+{
+    for (std::vector<std::pair<int,int> >::iterator it = vecty.begin(); it != vecty.end(); ++it)
+        main_chain->push_back(it->second);
+    if (!vecty.empty())
+        main_chain->insert(main_chain->begin(), vecty.begin()->first);
+}
+
+// 二分探索で [begin, end) の範囲に val を挿入
+void binary_search_insertion(std::vector<int> *main_chain, std::vector<int>::iterator end, int val)
+{
+    std::vector<int>::iterator pos = std::lower_bound(main_chain->begin(), end, val);
+    main_chain->insert(pos, val);
+}
+
+// Jacobsthal の順で pend(=pair.first) を main_chain に挿入（提出ロジックを忠実移植）
+void insert_into_main_chain(std::vector< std::pair<int,int> > vecty, std::vector<int> *main_chain, int additional_value)
+{
+    size_t Jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381,
+                           174763, 349525, 699051, 1398101, 2796203, 5592405, 11184811, 22369621, 44739243,
+                           89478485, 178956971, 357913941, 715827883, 1431655765};
+    int jacobsthal_idx = 1;
+
+    std::vector<int>::iterator slice_delim_it;
+    std::vector< std::pair<int,int> >::iterator pair_it;
+    std::vector< std::pair<int,int> >::iterator last_jacob_it = vecty.begin();
+
+    while (Jacobsthal[jacobsthal_idx] <= vecty.size())
+    {
+        pair_it = vecty.begin() + (Jacobsthal[jacobsthal_idx] - 1);
+        last_jacob_it = pair_it;
+
+        int insertion_counter = 0;
+        while (Jacobsthal[jacobsthal_idx] - insertion_counter > Jacobsthal[jacobsthal_idx - 1])
+        {
+            // pair_it->second を main_chain 内で見つけ、その**左側**を探索範囲にして first を挿入
+            slice_delim_it = std::find(main_chain->begin(), main_chain->end(), pair_it->second);
+            binary_search_insertion(main_chain, slice_delim_it, pair_it->first);
+            pair_it--;
+            insertion_counter++;
+        }
+        jacobsthal_idx++;
+    }
+
+    // Jacobsthal がサイズを超えた分の残りを挿入
+    if (Jacobsthal[jacobsthal_idx] != vecty.size())
+    {
+        pair_it = vecty.end();
+        if (pair_it != vecty.begin())
+            pair_it--;
+        while (pair_it != last_jacob_it)
+        {
+            slice_delim_it = std::find(main_chain->begin(), main_chain->end(), pair_it->second);
+            binary_search_insertion(main_chain, slice_delim_it, pair_it->first);
+            pair_it--;
+        }
+    }
+
+    if (additional_value != -1)
+        binary_search_insertion(main_chain, main_chain->end(), additional_value);
+}
+
+void print_after(std::vector<int> main_chain)
+{
+    std::cout << "After: ";
+    for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << '\n';
+}
+
+////////////////////////// std::deque 版（提出コードのまま） /////////////////////
+
+void create_pairs2(std::deque<std::pair<int, int> > *dequey, char **argv, int *additional_value)
+{
+    int i = 1;
+    while (argv[i])
+    {
+        if (argv[i] && argv[i + 1])
+        {
+            std::pair<int, int> pair_temp(std::atoi(argv[i]), std::atoi(argv[i + 1]));
+            dequey->push_back(pair_temp);
+            i += 2;
+        }
+        else
+        {
+            *additional_value = std::atoi(argv[i]);
+            i++;
+        }
+    }
+}
+
+void sort_pairs2(std::deque<std::pair<int, int> > *dequey)
+{
+    for (std::deque<std::pair<int, int> >::iterator it = dequey->begin(); it != dequey->end(); ++it)
+    {
+        if (it->first > it->second)
+        {
+            int temp = it->first;
+            it->first = it->second;
+            it->second = temp;
+        }
+    }
+}
+
+void mergeSort2(std::deque<std::pair<int, int> >::iterator start, std::deque<std::pair<int, int> >::iterator end, size_t size)
+{
+    if (size == 0 && start != end)
+        size = std::distance(start, end);
+    if (size <= 1)
+        return;
+
+    size_t firstHalf = size / 2;
+    size_t secondHalf = size - firstHalf;
+    std::deque<std::pair<int, int> >::iterator center = start + firstHalf;
+
+    mergeSort2(start, center, firstHalf);
+    mergeSort2(center, end, secondHalf);
+    std::inplace_merge(start, center, end, &custom_cmp);
+}
+
+void init_main_chain2(std::deque<int> *main_chain, std::deque<std::pair<int, int> > dequey)
+{
+    for (std::deque<std::pair<int, int> >::iterator it = dequey.begin(); it != dequey.end(); ++it)
+        main_chain->push_back(it->second);
+    if (!dequey.empty())
+        main_chain->push_front(dequey.begin()->first);
+}
+
+void binary_search_insertion2(std::deque<int> *main_chain, std::deque<int>::iterator end, int val)
+{
+    std::deque<int>::iterator place_to_insert = std::lower_bound(main_chain->begin(), end, val);
+    main_chain->insert(place_to_insert, val);
+}
+
+void insert_into_main_chain2(std::deque<std::pair<int, int> > dequey, std::deque<int> *main_chain, int additional_value)
+{
+    size_t Jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381,
+                           174763, 349525, 699051, 1398101, 2796203, 5592405, 11184811, 22369621, 44739243,
+                           89478485, 178956971, 357913941, 715827883, 1431655765};
+    int jacobsthal_idx = 1;
+
+    std::deque<int>::iterator slice_delim_it;
+    std::deque<std::pair<int, int> >::iterator pair_it;
+    std::deque<std::pair<int, int> >::iterator last_jacob_it = dequey.begin();
+
+    while (Jacobsthal[jacobsthal_idx] <= dequey.size())
+    {
+        pair_it = dequey.begin() + (Jacobsthal[jacobsthal_idx] - 1);
+        last_jacob_it = pair_it;
+
+        int insertion_counter = 0;
+        while (Jacobsthal[jacobsthal_idx] - insertion_counter > Jacobsthal[jacobsthal_idx - 1])
+        {
+            slice_delim_it = std::find(main_chain->begin(), main_chain->end(), pair_it->second);
+            binary_search_insertion2(main_chain, slice_delim_it, pair_it->first);
+            pair_it--;
+            insertion_counter++;
+        }
+        jacobsthal_idx++;
+    }
+
+    if (Jacobsthal[jacobsthal_idx] != dequey.size())
+    {
+        pair_it = dequey.end();
+        if (pair_it != dequey.begin())
+            pair_it--;
+        while (pair_it != last_jacob_it)
+        {
+            slice_delim_it = std::find(main_chain->begin(), main_chain->end(), pair_it->second);
+            binary_search_insertion2(main_chain, slice_delim_it, pair_it->first);
+            pair_it--;
+        }
+    }
+
+    if (additional_value != -1)
+        binary_search_insertion2(main_chain, main_chain->end(), additional_value);
+}
+
+void print_after2(std::deque<int> main_chain)
+{
+    std::cout << "After: ";
+    for (std::deque<int>::iterator it = main_chain.begin(); it != main_chain.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << '\n';
 }
