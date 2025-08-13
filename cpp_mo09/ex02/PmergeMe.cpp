@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/12 09:40:55 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:08:03 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include <climits>    // INT_MAX
 #include <cstdlib>    // std::strtol
 #include <ctime>      // clock, CLOCKS_PER_SEC
-#include <algorithm>  // std::find, std::lower_bound, std::inplace_merge など必要に応じて
+#include <algorithm>  // std::find, std::lower_bound, std::inplace_merge
 
-////////////////////////// 共有関数 ///////////////////////////////////
+////////////////////////// Shared Function ///////////////////////////////////
 
-// pairの「second（大きい方）」で比較（昇順）
+// Sort in ascending order by the second (larger) element of the pair
 bool custom_cmp(std::pair<int, int> a, std::pair<int, int> b)
 {
     return a.second < b.second;
@@ -51,9 +51,9 @@ void print_before(char **argv)
         throw CustomException("Error: input is invalid");
 }
 
-////////////////////////// std::vector 版 //////////////////////////////////////
+////////////////////////// std::vector //////////////////////////////////////
 
-// argv から pair を作る（奇数個なら最後を additional_value に退避）
+// Create pairs from argv; if the number of elements is odd, store the last one in additional_value.
 void create_pairs(std::vector<std::pair<int,int> > *vecty, char **argv, int *additional_value)
 {
     int i = 1;
@@ -73,7 +73,7 @@ void create_pairs(std::vector<std::pair<int,int> > *vecty, char **argv, int *add
     }
 }
 
-// 各ペアを (小, 大) の形にそろえる
+// Normalize each pair into the form (small, large)
 void sort_pairs(std::vector<std::pair<int,int> > *vecty)
 {
     for (std::vector<std::pair<int,int> >::iterator it = vecty->begin(); it != vecty->end(); ++it)
@@ -87,7 +87,7 @@ void sort_pairs(std::vector<std::pair<int,int> > *vecty)
     }
 }
 
-// 再帰 merge sort（second で並べる）※list 版のロジックをそのままvectorイテレータで
+// Recursive merge sort (sorted by second value); reuse the list-based logic with vector iterators.
 void mergeSort(std::vector<std::pair<int,int> >::iterator start,
                std::vector<std::pair<int,int> >::iterator end,
                size_t size)
@@ -106,7 +106,7 @@ void mergeSort(std::vector<std::pair<int,int> >::iterator start,
     std::inplace_merge(start, center, end, &custom_cmp);
 }
 
-// main_chain を初期化（各pairの second を並べ、さらに先頭に最初の first を入れる）
+// Fill main_chain with the second values of all pairs, then prepend the first value of the first pair.
 void init_main_chain(std::vector<int> *main_chain, std::vector< std::pair<int,int> > vecty)
 {
     for (std::vector<std::pair<int,int> >::iterator it = vecty.begin(); it != vecty.end(); ++it)
@@ -115,20 +115,26 @@ void init_main_chain(std::vector<int> *main_chain, std::vector< std::pair<int,in
         main_chain->insert(main_chain->begin(), vecty.begin()->first);
 }
 
-// 二分探索で [begin, end) の範囲に val を挿入
+// Insert val into the range [begin, end) using binary search
 void binary_search_insertion(std::vector<int> *main_chain, std::vector<int>::iterator end, int val)
 {
     std::vector<int>::iterator pos = std::lower_bound(main_chain->begin(), end, val);
     main_chain->insert(pos, val);
 }
 
-// Jacobsthal の順で pend(=pair.first) を main_chain に挿入（提出ロジックを忠実移植）
+// Insert pend (i.e., pair.first) into main_chain in Jacobsthal order (faithfully replicating the original submission logic)
 void insert_into_main_chain(std::vector< std::pair<int,int> > vecty, std::vector<int> *main_chain, int additional_value)
 {
     size_t Jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381,
                            174763, 349525, 699051, 1398101, 2796203, 5592405, 11184811, 22369621, 44739243,
                            89478485, 178956971, 357913941, 715827883, 1431655765};
+
+    size_t jacobsthal_len = sizeof(Jacobsthal) / sizeof(Jacobsthal[0]);
     int jacobsthal_idx = 1;
+
+    if (vecty.size() >= Jacobsthal[jacobsthal_len - 1]) {
+        throw CustomException("Error: Input size exceeds supported Jacobsthal index range.");
+    }
 
     std::vector<int>::iterator slice_delim_it;
     std::vector< std::pair<int,int> >::iterator pair_it;
@@ -142,7 +148,6 @@ void insert_into_main_chain(std::vector< std::pair<int,int> > vecty, std::vector
         int insertion_counter = 0;
         while (Jacobsthal[jacobsthal_idx] - insertion_counter > Jacobsthal[jacobsthal_idx - 1])
         {
-            // pair_it->second を main_chain 内で見つけ、その**左側**を探索範囲にして first を挿入
             slice_delim_it = std::find(main_chain->begin(), main_chain->end(), pair_it->second);
             binary_search_insertion(main_chain, slice_delim_it, pair_it->first);
             pair_it--;
@@ -151,7 +156,6 @@ void insert_into_main_chain(std::vector< std::pair<int,int> > vecty, std::vector
         jacobsthal_idx++;
     }
 
-    // Jacobsthal がサイズを超えた分の残りを挿入
     if (Jacobsthal[jacobsthal_idx] != vecty.size())
     {
         pair_it = vecty.end();
@@ -177,7 +181,7 @@ void print_after(std::vector<int> main_chain)
     std::cout << '\n';
 }
 
-////////////////////////// std::deque 版（提出コードのまま） /////////////////////
+////////////////////////// std::deque /////////////////////
 
 void create_pairs2(std::deque<std::pair<int, int> > *dequey, char **argv, int *additional_value)
 {
@@ -246,7 +250,13 @@ void insert_into_main_chain2(std::deque<std::pair<int, int> > dequey, std::deque
     size_t Jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381,
                            174763, 349525, 699051, 1398101, 2796203, 5592405, 11184811, 22369621, 44739243,
                            89478485, 178956971, 357913941, 715827883, 1431655765};
+
+	size_t jacobsthal_len = sizeof(Jacobsthal) / sizeof(Jacobsthal[0]);
     int jacobsthal_idx = 1;
+
+    if (dequey.size() >= Jacobsthal[jacobsthal_len - 1]) {
+        throw CustomException("Error: Input size exceeds supported Jacobsthal index range.");
+    }
 
     std::deque<int>::iterator slice_delim_it;
     std::deque<std::pair<int, int> >::iterator pair_it;

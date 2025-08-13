@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:32 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/12 09:45:47 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/12 10:43:46 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
        return 1;
    }
 
-    // 1) std::vector アプローチ（list→vector 置換）
+    // 1) std::vector
     {
         std::cout << "using std::vector" << std::endl;
         clock_t start = clock();
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
         }
     }
 
-    // 2) std::deque アプローチ（提出コードそのまま）
+    // 2) std::deque
     {
         std::cout << "using std::deque" << std::endl;
         clock_t start = clock();
