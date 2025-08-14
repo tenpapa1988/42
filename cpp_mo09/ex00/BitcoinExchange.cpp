@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:17:57 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/07 09:16:08 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/14 09:17:24 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #include <limits>
 
 BitcoinExchange::BitcoinExchange() {}
+
+BitcoinExchange::BitcoinExchange(const std::string& dbFile) {
+   loadDatabase(dbFile);
+}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) {
     this->_rateMap = other._rateMap;
