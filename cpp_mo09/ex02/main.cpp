@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:32 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/13 13:25:09 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/14 09:52:00 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int main(int argc, char **argv)
             print_after(main_chain);
 
             clock_t end = clock();
+			double elapsed_ms = (static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000.0;
             std::cout << "Time to process a range of " << main_chain.size()
                       << " elements with std::vector: "
-                      << static_cast<double>(end - start) / 1000 << " millisec"
+                      << elapsed_ms << " millisec"
                       << std::endl << std::endl;
         } catch (const std::exception& e) {
             std::cerr << e.what() << '\n';
@@ -64,9 +65,10 @@ int main(int argc, char **argv)
             print_after2(main_chain);
 
             clock_t end = clock();
+			double elapsed_ms = (static_cast<double>(end - start) / CLOCKS_PER_SEC) * 1000.0;
             std::cout << "Time to process a range of " << main_chain.size()
                       << " elements with std::deque: "
-                      << static_cast<double>(end - start) / 1000 << " millisec"
+                      << elapsed_ms << " millisec"
                       << std::endl;
         } catch (const std::exception& e) {
             std::cerr << e.what() << '\n';
