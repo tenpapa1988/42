@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:47 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/15 12:33:45 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/17 15:29:01 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,13 +404,4 @@ void PmergeMe::execute() {
               << " elements with std::vector : " << vectorTime << " us" << std::endl;
     std::cout << "Time to process a range of " << _inputData.size() 
               << " elements with std::deque  : " << dequeTime << " us" << std::endl;
-}
-
-// Getters
-const std::vector<int>& PmergeMe::getInputData() const {
-    return _inputData;
-}
-
-std::size_t PmergeMe::getSize() const {
-    return _inputData.size();
 }
