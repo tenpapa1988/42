@@ -6,7 +6,7 @@
 /*   By: yussaito <yussaito@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:48:41 by yussaito          #+#    #+#             */
-/*   Updated: 2025/08/15 12:35:01 by yussaito         ###   ########.fr       */
+/*   Updated: 2025/08/18 14:58:17 by yussaito         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ public:
     // Main functionality
     bool parseInput(int argc, char** argv);
     void execute();
-    
-    // Getters
-    const std::vector<int>& getInputData() const;
-    std::size_t getSize() const;
+
 };
 
 #endif
