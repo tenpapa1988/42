@@ -57,7 +57,7 @@ EOF
     sleep 5
     
     # Install WordPress
-    wp core install --url=https://geonwkim.42.fr --title="Inception WordPress" \
+    wp core install --url=https://yussaito.42.fr --title="Inception WordPress" \
         --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL \
         --path=/var/www/html/wordpress --allow-root
     

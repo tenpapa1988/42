@@ -20,15 +20,15 @@ if ! wp core is-installed --allow-root; then
     
     # Install WordPress
     wp core install \
-        --url=https://geonwkim.42.fr \
+        --url=https://yussaito.42.fr \
         --title="My WordPress Site" \
         --admin_user=superuser \
         --admin_password=adminpass123 \
-        --admin_email=admin@geonwkim.42.fr \
+        --admin_email=admin@yussaito.42.fr \
         --allow-root
     
     # Create a regular user
-    wp user create wpuser2 user@geonwkim.42.fr \
+    wp user create wpuser2 user@gyussaito.42.fr \
         --user_pass=userpass123 \
         --role=author \
         --allow-root
