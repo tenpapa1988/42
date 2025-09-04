@@ -29,12 +29,17 @@ down:
 	@echo "Stopping $(NAME) services..."
 	docker compose -f $(COMPOSE_FILE) down
 
+UID := $(shell id -u)
+GID := $(shell id -g)
+
 clean:
 	@echo "Cleaning containers and images..."
 	docker compose -f $(COMPOSE_FILE) down --rmi all --volumes --remove-orphans
-	@echo "Removing data directories..."
-	rm -rf $(HOME)/data/wordpress/*
-	rm -rf $(HOME)/data/mariadb/*
+	@echo "Removing data directories (via helper container)..."
+	docker run --rm \
+	  -v $(HOME)/data/wordpress:/w \
+	  -v $(HOME)/data/mariadb:/m \
+	  alpine:latest sh -c 'rm -rf /w/* /m/* || true'
 	@echo "Volume contents cleaned!"
 
 fclean: clean
