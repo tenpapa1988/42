@@ -1,0 +1,11 @@
+# Secret files
+.env
+*.crt
+*.key
+
+# Volumes
+data/
+
+# OS/IDE files
+.DS_Store
+.vscode/
